@@ -88,8 +88,12 @@ public class Home extends Application {
              System.exit(0);
         });
         btnsupp.setOnAction((ActionEvent event) -> {
+             Items item1=new Items();
+             item1.start(Constantes.StageSup);
+        });
+        btnITM.setOnAction((ActionEvent event) -> {
              Supplier sp1=new Supplier();
-             sp1.start(Constantes.StageSup);
+             sp1.start(Constantes.StageItem);
         });
         //================end button actions
         //==================================================grid contains buttons
