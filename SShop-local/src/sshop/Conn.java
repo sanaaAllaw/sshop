@@ -1,8 +1,6 @@
 package sshop;
  
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
  
 /**
  *
@@ -25,14 +23,7 @@ public class Conn {
         }
         return conn;
     }
- 
-    
-    
-    
-   
-    /**
-     * @param args the command line arguments
-     */
+  
     public static void main(String[] args) {
        
     }

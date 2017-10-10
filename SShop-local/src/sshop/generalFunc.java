@@ -8,18 +8,11 @@ package sshop;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  *
@@ -61,5 +54,46 @@ public class generalFunc {
         r.keyRelease(KeyEvent.VK_WINDOWS);
     }
     //=====end minimize all other applications
+    public static void AddItemGroup(HashMap<Integer,String> ItemGroupHash){
+        try{
+            String query = " insert into ItemGroup (GroupId, GroupDesc)"
+                    + " values (?, ?)";
+            PreparedStatement preparedStmt = SShop.conn.prepareStatement(query);
+            preparedStmt.setString (1,ItemGroupHash.get(0));
+            preparedStmt.setString (2,ItemGroupHash.get(1));
+            preparedStmt.execute();
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+    }
+    public static String getItemCode(){
+        Double ItemNumbervar=0.0;
+        String formatted = null;
+        formatted = String.format("%06d", ItemNumbervar);
+        return formatted;
+    }
+    public static boolean checkLogin(String uservar,String passvar){
+        boolean boolcheckvar=false;
+        try{
+            String query = "select username,password from users where username=? and password =?";
+            
+            PreparedStatement preparedStmt = SShop.connmysql.prepareStatement(query);
+            preparedStmt.setString (1,uservar);
+            preparedStmt.setString (2,passvar);
+            ResultSet rs    = preparedStmt.executeQuery(query);
+            if (rs.next()) {
+                boolcheckvar=true;
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+        return boolcheckvar;
+    }
     
 }

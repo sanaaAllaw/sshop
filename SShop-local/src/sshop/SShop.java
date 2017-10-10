@@ -33,16 +33,18 @@ public class SShop extends Application {
     
     static HashMap<String,String> CompListinfo;
     Conn connectionvar=new Conn();
+    JDBCMysql jdbcConn=new JDBCMysql();
     generalFunc generalfuncvar=new generalFunc();
     static Connection conn ;
+    static Connection connmysql ;
     @Override
     public void start(Stage primaryStage) throws AWTException {
-        generalfuncvar.minimizeApps();
+        generalFunc.minimizeApps();
         conn=connectionvar.connect();
-        
+        connmysql=JDBCMysql.connectmysql();
         //==============declare variables and components
         CompListinfo=new HashMap<>();
-        CompListinfo=generalfuncvar.GetCompanyInfo();
+        CompListinfo=generalFunc.GetCompanyInfo();
         BorderPane root = new BorderPane();
         VBox vbox1=new VBox();
         BorderPane border1=new BorderPane();
@@ -73,11 +75,8 @@ public class SShop extends Application {
         passtxt.setPrefWidth(200);
         Button loginbtn=new Button("Login");
         loginbtn.setId("rich-blue");
-        loginbtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
+        loginbtn.setOnAction((ActionEvent event) -> {
+            
         });
         //==============end declare variables and components
         //================assign items to parents
@@ -104,7 +103,7 @@ public class SShop extends Application {
         lb2.setText("Address: "+CompListinfo.get("address"));
         lb3.setText("Capital: "+CompListinfo.get("capital"));
         loginbtn.setOnAction((ActionEvent event) -> {
-             if(checkUserName(usertxt.getText(), passtxt.getText())==true){
+             if(generalFunc.checkLogin(usertxt.getText(), passtxt.getText())==true){
                  error.setText("Succeful login");
                  primaryStage.close();
                  Home h1=new Home();
