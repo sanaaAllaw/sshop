@@ -75,6 +75,7 @@ public class Home extends Application {
         grid1.add(btnEMP, 1, 10);
         //===================button actions
         btnLogout.setOnAction((ActionEvent event) -> {
+            
              primaryStage.close();
              SShop ss1=new SShop();
             try {
@@ -87,11 +88,11 @@ public class Home extends Application {
         btnExit.setOnAction((ActionEvent event) -> {
              System.exit(0);
         });
-        btnsupp.setOnAction((ActionEvent event) -> {
+        btnITM.setOnAction((ActionEvent event) -> {
              Items item1=new Items();
              item1.start(Constantes.StageSup);
         });
-        btnITM.setOnAction((ActionEvent event) -> {
+        btnsupp.setOnAction((ActionEvent event) -> {
              Supplier sp1=new Supplier();
              sp1.start(Constantes.StageItem);
         });
