@@ -8,7 +8,10 @@ package sshop;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+<<<<<<< HEAD
 import java.sql.Connection;
+=======
+>>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -55,6 +58,7 @@ public class generalFunc {
         r.keyRelease(KeyEvent.VK_WINDOWS);
     }
     //=====end minimize all other applications
+<<<<<<< HEAD
     public static void AddItems(HashMap<String,String> ItemGroupHash){
         try{
             String query = "INSERT INTO `sshop`.`items` (`item_code`, `item_name`, `item_barcode`,"
@@ -79,12 +83,20 @@ public class generalFunc {
     }
     //===================================
     public static void InsertItemGroupMysql(HashMap<Integer,String> ItemsHash){
+=======
+    public static void AddItemGroup(HashMap<Integer,String> ItemGroupHash){
+>>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
         try{
             String query = " insert into ItemGroup (GroupId, GroupDesc)"
                     + " values (?, ?)";
             PreparedStatement preparedStmt = SShop.conn.prepareStatement(query);
+<<<<<<< HEAD
             preparedStmt.setString (1,ItemsHash.get(0));
             preparedStmt.setString (2,ItemsHash.get(1));
+=======
+            preparedStmt.setString (1,ItemGroupHash.get(0));
+            preparedStmt.setString (2,ItemGroupHash.get(1));
+>>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
             preparedStmt.execute();
         }
         catch (Exception e)
@@ -93,6 +105,7 @@ public class generalFunc {
             System.err.println(e.getMessage());
         }
     }
+<<<<<<< HEAD
     //=================================
     public static void UpdateSpeciefItem(HashMap<String,String> SpecifiedItemCodevar){
         PreparedStatement preparedStatement = null;
@@ -242,6 +255,23 @@ public class generalFunc {
             preparedStatement.setString(1, uservar);
             preparedStatement.setString(2, MD5(passvar));
             ResultSet rs = preparedStatement.executeQuery();
+=======
+    public static String getItemCode(){
+        Double ItemNumbervar=0.0;
+        String formatted = null;
+        formatted = String.format("%06d", ItemNumbervar);
+        return formatted;
+    }
+    public static boolean checkLogin(String uservar,String passvar){
+        boolean boolcheckvar=false;
+        try{
+            String query = "select username,password from users where username=? and password =?";
+            
+            PreparedStatement preparedStmt = SShop.connmysql.prepareStatement(query);
+            preparedStmt.setString (1,uservar);
+            preparedStmt.setString (2,passvar);
+            ResultSet rs    = preparedStmt.executeQuery(query);
+>>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
             if (rs.next()) {
                 boolcheckvar=true;
             }

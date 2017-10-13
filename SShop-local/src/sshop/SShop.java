@@ -40,7 +40,10 @@ public class SShop extends Application {
     static Connection connmysql ;
     @Override
     public void start(Stage primaryStage) throws AWTException {
+<<<<<<< HEAD
        
+=======
+>>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
         generalFunc.minimizeApps();
         conn=connectionvar.connect();
         connmysql=JDBCMysql.connectmysql();
@@ -77,11 +80,16 @@ public class SShop extends Application {
         passtxt.setPrefWidth(200);
         Button loginbtn=new Button("Login");
         loginbtn.setId("rich-blue");
+<<<<<<< HEAD
          passtxt.setOnKeyPressed((KeyEvent ke) -> {
              if (ke.getCode().equals(KeyCode.ENTER))
              {
                  loginbtn.fire();
              }
+=======
+        loginbtn.setOnAction((ActionEvent event) -> {
+            
+>>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
         });
         //==============end declare variables and components
         //================assign items to parents
