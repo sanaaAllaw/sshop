@@ -20,6 +20,8 @@ public class Constantes {
     static Stage StageMenu=new Stage(StageStyle.DECORATED);
     static Stage StageSup=new Stage(StageStyle.DECORATED);
     static Stage StageItem=new Stage(StageStyle.DECORATED);
+    static Stage StageGroup=new Stage(StageStyle.DECORATED);
+    static Stage StageCust=new Stage(StageStyle.DECORATED);
     static double height;
     static double width;
     static double taskBarHeight;

@@ -33,23 +33,20 @@ import javafx.scene.input.KeyEvent;
 public class SShop extends Application {
     
     static HashMap<String,String> CompListinfo;
-    Conn connectionvar=new Conn();
+    //Conn connectionvar=new Conn();
     JDBCMysql jdbcConn=new JDBCMysql();
     generalFunc generalfuncvar=new generalFunc();
-    static Connection conn ;
+    //static Connection conn ;
     static Connection connmysql ;
     @Override
     public void start(Stage primaryStage) throws AWTException {
-<<<<<<< HEAD
        
-=======
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
         generalFunc.minimizeApps();
-        conn=connectionvar.connect();
+        //conn=connectionvar.connect();
         connmysql=JDBCMysql.connectmysql();
         //==============declare variables and components
         CompListinfo=new HashMap<>();
-        CompListinfo=generalFunc.GetCompanyInfo();
+        //CompListinfo=generalFunc.GetCompanyInfo();
         BorderPane root = new BorderPane();
         VBox vbox1=new VBox();
         BorderPane border1=new BorderPane();
@@ -80,16 +77,11 @@ public class SShop extends Application {
         passtxt.setPrefWidth(200);
         Button loginbtn=new Button("Login");
         loginbtn.setId("rich-blue");
-<<<<<<< HEAD
          passtxt.setOnKeyPressed((KeyEvent ke) -> {
              if (ke.getCode().equals(KeyCode.ENTER))
              {
                  loginbtn.fire();
              }
-=======
-        loginbtn.setOnAction((ActionEvent event) -> {
-            
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
         });
         //==============end declare variables and components
         //================assign items to parents
@@ -112,9 +104,9 @@ public class SShop extends Application {
         grid1.add(error, 6, 8);
         //================end assign items to parents
         //=========add values to labels
-        lb1.setText("Name: "+CompListinfo.get("name"));
+        /*lb1.setText("Name: "+CompListinfo.get("name"));
         lb2.setText("Address: "+CompListinfo.get("address"));
-        lb3.setText("Capital: "+CompListinfo.get("capital"));
+        lb3.setText("Capital: "+CompListinfo.get("capital"));*/
         loginbtn.setOnAction((ActionEvent event) -> {
              if(generalFunc.checkLogin(usertxt.getText(), passtxt.getText())==true){
                  error.setText("Succeful login");
@@ -128,7 +120,7 @@ public class SShop extends Application {
         //===========end add values to labels
         imgview1.setImage(new Image("/pictures/Girls-Red-Dress-icon.png"));
         imgview2.setImage(new Image("/pictures/Girls-Blue-Dress-icon.png"));
-        CompListinfo=generalFunc.GetCompanyInfo();
+        //CompListinfo=generalFunc.GetCompanyInfo();
         Scene scene = new Scene(root, 500, 350);
         String cssURL = this.getClass().getResource("/css/sshop.css").toExternalForm();
         scene.getStylesheets().add(cssURL);

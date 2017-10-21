@@ -96,6 +96,10 @@ public class Home extends Application {
              Supplier sp1=new Supplier();
              sp1.start(Constantes.StageItem);
         });
+        btnCust.setOnAction((ActionEvent event) -> {
+             Customer cus1=new Customer();
+             cus1.start(Constantes.StageCust);
+        });
         //================end button actions
         //==================================================grid contains buttons
         StackPane root = new StackPane();

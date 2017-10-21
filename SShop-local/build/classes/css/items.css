@@ -46,13 +46,10 @@
 }
 #rich-colored Text {
     -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
-<<<<<<< HEAD
 }
 #imgviewItem{
     -fx-padding: 10;
     -fx-background-color: firebrick;
     -fx-background-radius: 5;
     
-=======
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
 }

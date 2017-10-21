@@ -9,19 +9,11 @@ import java.io.File;
 import java.util.HashMap;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-<<<<<<< HEAD
-import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-=======
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
@@ -30,10 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-<<<<<<< HEAD
 import javafx.scene.effect.DropShadow;
-=======
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -53,7 +42,6 @@ import javafx.stage.Stage;
  * @author skynete
  */
 public class Items extends Application{
-<<<<<<< HEAD
     File file;
     HashMap<Integer,HashMap<String,String>> ItemsAllHash = new HashMap<>();
     HashMap<String, String> specItemhash=new HashMap<>();
@@ -66,7 +54,7 @@ public class Items extends Application{
     TextField appendtxt6=new TextField();
     private final TableView<Item_desc> table = new TableView<>();
     public void clearFields(){
-        appendtxt1.clear();
+        //appendtxt1.clear();
         appendtxt2.clear();
         appendtxt3.clear();
         appendtxt4.clear();
@@ -87,15 +75,6 @@ public class Items extends Application{
                     ItemsAllHash.get(i).get("itemprice"),
                     ItemsAllHash.get(i).get("itemgrp")));
         }
-=======
-    private final TableView<Item_desc> table = new TableView<>();
-    @Override
-    public void start(Stage primaryStage) {
-        //===========================================
-        final ObservableList<Item_desc> data = FXCollections.observableArrayList(
-                new Item_desc("asdasd", "", "", "", "", "")
-        );
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
         VBox v1=new VBox();
         GridPane buttonsMenu=new GridPane();
         HBox hbox1=new HBox();
@@ -164,7 +143,8 @@ public class Items extends Application{
         Label appendlbl4=new Label("Supplier");
         Label appendlbl5=new Label("Original Price");
         Label appendlbl6=new Label("Item Group");
-<<<<<<< HEAD
+        
+        Button btnaddNewGroup = new Button("New group");
         TextField searchtxt=new TextField();searchtxt.setPrefWidth(300);
         searchtxt.setId("searchtxt");
         searchtxt.setPromptText("Search..");
@@ -192,22 +172,21 @@ public class Items extends Application{
         //===================================================================search
         
         
-=======
-        TextField appendtxt1=new TextField();
-        TextField appendtxt2=new TextField();
-        TextField appendtxt3=new TextField();
-        TextField appendtxt4=new TextField();
-        TextField appendtxt5=new TextField();
-        TextField appendtxt6=new TextField();
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
         appendgrid.add(appendlbl1, 1, 1);appendgrid.add(appendtxt1, 2, 1);
         appendgrid.add(appendlbl2, 1, 2);appendgrid.add(appendtxt2, 2, 2);
         appendgrid.add(appendlbl3, 1, 3);appendgrid.add(appendtxt3, 2, 3);
         appendgrid.add(appendlbl4, 3, 1);appendgrid.add(appendtxt4, 4, 1);
         appendgrid.add(appendlbl5, 3, 2);appendgrid.add(appendtxt5, 4, 2);
-        appendgrid.add(appendlbl6, 3, 3);appendgrid.add(appendtxt6, 4, 3);
+        appendgrid.add(appendlbl6, 3, 3);appendgrid.add(appendtxt6, 4, 3);appendgrid.add(btnaddNewGroup, 5, 3);
         
         
+        btnMenu3.setOnAction((ActionEvent event) -> {
+           clearFields(); 
+        });
+        btnaddNewGroup.setOnAction((ActionEvent event) -> {
+           ItemGroup g1=new ItemGroup();
+           g1.start(Constantes.StageGroup); 
+        });
         //=============================accept
         btnMenu1.setOnAction((ActionEvent event) -> {
             HashMap<String,String> hashItemslocaly=new HashMap<>();
@@ -238,11 +217,7 @@ public class Items extends Application{
         TableColumn item_code_col = new TableColumn("Item Code");
         item_code_col.setMinWidth(100);
         item_code_col.setCellValueFactory(
-<<<<<<< HEAD
                 new PropertyValueFactory<>("ItemCode"));
-=======
-                new PropertyValueFactory<Item_desc, String>("ItemCode"));
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
         
         TableColumn item_name_col = new TableColumn("Item Name");
         item_name_col.setMinWidth(100);
@@ -271,7 +246,6 @@ public class Items extends Application{
         
         table.setItems(data);
         table.getColumns().addAll(item_code_col, item_name_col, item_barcode_col,item_supp_col,item_orig_col,item_group_col);
-<<<<<<< HEAD
         hbox1.getChildren().addAll(appendgrid,imageview1);
         v1.getChildren().addAll(buttonsMenu,hbox1,searchtxt,table);
         v1.setSpacing(10);
@@ -306,21 +280,13 @@ public class Items extends Application{
         });
         
         
-=======
-        v1.getChildren().addAll(buttonsMenu,appendgrid,table);
-        v1.setSpacing(10);
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
         //============================================
         
         StackPane root = new StackPane();
         root.getChildren().add(v1);
         
         Scene scene = new Scene(root, Constantes.primScreenBounds.getWidth()-200-10,
-<<<<<<< HEAD
                 700);
-=======
-                Constantes.primScreenBounds.getHeight()-Constantes.taskBarHeight);
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
         String cssURL = this.getClass().getResource("/css/items.css").toExternalForm();
         scene.getStylesheets().add(cssURL);
         primaryStage.setX(200+10);
@@ -338,11 +304,8 @@ public class Items extends Application{
     }
     
     //================================================
-<<<<<<< HEAD
     //=========clear fields
     
-=======
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
     //========================class item description to use it for adding to mysql
     public static class Item_desc {
         private final SimpleStringProperty ItemCode;

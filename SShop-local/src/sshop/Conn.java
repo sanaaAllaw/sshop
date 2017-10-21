@@ -14,6 +14,7 @@ public class Conn {
      */
     public Connection connect() {
         // SQLite connection string
+        
         String url = "jdbc:sqlite:src/config/sshop.db";
         Connection conn = null;
         try {

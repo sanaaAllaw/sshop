@@ -8,10 +8,7 @@ package sshop;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-<<<<<<< HEAD
 import java.sql.Connection;
-=======
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +22,7 @@ import java.util.HashMap;
 
 public class generalFunc {
     //==========declare function to collect company information from xml file
-    public static HashMap<String,String> GetCompanyInfo(){
+   /* public static HashMap<String,String> GetCompanyInfo(){
         HashMap<String,String> hashmapCompList=new HashMap<>();
         String sql = "SELECT * FROM company";
         
@@ -46,7 +43,7 @@ public class generalFunc {
             System.out.println(e.getMessage());
         }
         return hashmapCompList;
-    }
+    }*/
     //==========end declare function to collect company information from xml file
     //=====minimize all other applications
     public static void minimizeApps() throws AWTException{
@@ -58,7 +55,6 @@ public class generalFunc {
         r.keyRelease(KeyEvent.VK_WINDOWS);
     }
     //=====end minimize all other applications
-<<<<<<< HEAD
     public static void AddItems(HashMap<String,String> ItemGroupHash){
         try{
             String query = "INSERT INTO `sshop`.`items` (`item_code`, `item_name`, `item_barcode`,"
@@ -83,20 +79,13 @@ public class generalFunc {
     }
     //===================================
     public static void InsertItemGroupMysql(HashMap<Integer,String> ItemsHash){
-=======
-    public static void AddItemGroup(HashMap<Integer,String> ItemGroupHash){
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
         try{
-            String query = " insert into ItemGroup (GroupId, GroupDesc)"
-                    + " values (?, ?)";
-            PreparedStatement preparedStmt = SShop.conn.prepareStatement(query);
-<<<<<<< HEAD
+            String query = " insert into item_group (GroupId, GroupDesc,GroupType)"
+                    + " values (?, ? ,?)";
+            PreparedStatement preparedStmt = SShop.connmysql.prepareStatement(query);
             preparedStmt.setString (1,ItemsHash.get(0));
             preparedStmt.setString (2,ItemsHash.get(1));
-=======
-            preparedStmt.setString (1,ItemGroupHash.get(0));
-            preparedStmt.setString (2,ItemGroupHash.get(1));
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
+            preparedStmt.setString (3,ItemsHash.get(2));
             preparedStmt.execute();
         }
         catch (Exception e)
@@ -105,7 +94,6 @@ public class generalFunc {
             System.err.println(e.getMessage());
         }
     }
-<<<<<<< HEAD
     //=================================
     public static void UpdateSpeciefItem(HashMap<String,String> SpecifiedItemCodevar){
         PreparedStatement preparedStatement = null;
@@ -162,6 +150,31 @@ public class generalFunc {
         return SpeciefItemCodeMap;
     }
     //=================================
+     public static HashMap<Integer,String> getAllCurr(){
+        HashMap<Integer,String> SpeciefCurr=new HashMap<>();
+        PreparedStatement preparedStatement = null;
+        Integer currcounter=0;
+        boolean boolcheckvar=false;
+        String selectSQL = "SELECT * FROM currencies";
+        try{
+            
+            preparedStatement = SShop.connmysql.prepareStatement(selectSQL);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                SpeciefCurr.put(currcounter, rs.getString("iso_code"));
+                currcounter++;
+            
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+        return SpeciefCurr;
+    }
+     //============================================
     public static HashMap<Integer,HashMap<String,String>> getAllItems(){
         Integer i=0;
         HashMap<Integer,HashMap<String,String>> ItemsAllHash = new HashMap<>();
@@ -233,6 +246,26 @@ public class generalFunc {
         }
         return formatted;
     }
+    public static String getItemGroupCode(){
+        PreparedStatement preparedStatement = null;
+        Integer ItemNumbervar=0;
+        String formatted = null;
+        String selectSQL = "SELECT count(*) as itemgroupcount FROM item_group order by groupid desc limit 1";
+        try{
+            preparedStatement = SShop.connmysql.prepareStatement(selectSQL);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                ItemNumbervar=rs.getInt("itemgroupcount");
+                formatted = String.format("%06d", ItemNumbervar);
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+        return formatted;
+    }
     public static String MD5(String md5) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
@@ -255,23 +288,6 @@ public class generalFunc {
             preparedStatement.setString(1, uservar);
             preparedStatement.setString(2, MD5(passvar));
             ResultSet rs = preparedStatement.executeQuery();
-=======
-    public static String getItemCode(){
-        Double ItemNumbervar=0.0;
-        String formatted = null;
-        formatted = String.format("%06d", ItemNumbervar);
-        return formatted;
-    }
-    public static boolean checkLogin(String uservar,String passvar){
-        boolean boolcheckvar=false;
-        try{
-            String query = "select username,password from users where username=? and password =?";
-            
-            PreparedStatement preparedStmt = SShop.connmysql.prepareStatement(query);
-            preparedStmt.setString (1,uservar);
-            preparedStmt.setString (2,passvar);
-            ResultSet rs    = preparedStmt.executeQuery(query);
->>>>>>> 36718b3974feab1b5eeacbd0beae5e1390783db9
             if (rs.next()) {
                 boolcheckvar=true;
             }
