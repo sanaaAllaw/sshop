@@ -10,7 +10,7 @@ public class JDBCMysql {
     
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "1234";
+    static final String PASS = "";
     public static Connection connectmysql(){
        Connection dbConnection = null;
 

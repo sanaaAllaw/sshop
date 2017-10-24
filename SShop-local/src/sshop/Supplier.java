@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -43,37 +44,40 @@ import javafx.stage.Stage;
  */
 public class Supplier extends Application{
     File file;
+    HashMap<Integer, String> currMap=new HashMap<>();
     HashMap<Integer,HashMap<String,String>> SuppAllHash = new HashMap<>();
     HashMap<String, String> specSupphash=new HashMap<>();
     String filepicture="";
     TextField appendtxt1=new TextField();
     TextField appendtxt2=new TextField();
-    TextField appendtxt3=new TextField();
+    ComboBox<String> appendtxt3=new ComboBox<>();
     TextField appendtxt4=new TextField();
     TextField appendtxt5=new TextField();
     TextField appendtxt6=new TextField();
-    private final TableView<Item_desc> table = new TableView<>();
+    private final TableView<supp_desc> table = new TableView<>();
     public void clearFields(){
         //appendtxt1.clear();
         appendtxt2.clear();
-        appendtxt3.clear();
+        appendtxt3.getSelectionModel().selectFirst();
         appendtxt4.clear();
         appendtxt5.clear();
         appendtxt6.clear();
+        appendtxt1.setText(generalFunc.getSuppCode());
     }
     @Override
     public void start(Stage primaryStage) {
         //===========================================
-        SuppAllHash=generalFunc.getAllItems();
-        final ObservableList<Item_desc> data = FXCollections.observableArrayList();
+        clearFields();
+        SuppAllHash=generalFunc.getAllSupp();
+        final ObservableList<supp_desc> data = FXCollections.observableArrayList();
         for (int i=0;i<SuppAllHash.size();i++){
-            data.add(new Item_desc(
-                    SuppAllHash.get(i).get("SupplierCode"),
-                    SuppAllHash.get(i).get("SuppName"),
-                    SuppAllHash.get(i).get("CompanyReference"),
-                    SuppAllHash.get(i).get("Currency"),
+            data.add(new supp_desc(
+                    SuppAllHash.get(i).get("Suppcode"),
+                    SuppAllHash.get(i).get("Suppname"),
+                    SuppAllHash.get(i).get("Curr"),
                     SuppAllHash.get(i).get("Rate"),
-                    SuppAllHash.get(i).get("Address")));
+                    SuppAllHash.get(i).get("Address"),
+                    SuppAllHash.get(i).get("Mobile")));
         }
         VBox v1=new VBox();
         GridPane buttonsMenu=new GridPane();
@@ -154,10 +158,10 @@ public class Supplier extends Application{
                 table.setItems(data);
                 return;
             }
-            ObservableList<Item_desc> tableItems = FXCollections.observableArrayList();
-            ObservableList<TableColumn<Item_desc, ?>> cols = table.getColumns();
-            for (Item_desc data1 : data) {
-                for (TableColumn<Item_desc, ?> col1 : cols) {
+            ObservableList<supp_desc> tableItems = FXCollections.observableArrayList();
+            ObservableList<TableColumn<supp_desc, ?>> cols = table.getColumns();
+            for (supp_desc data1 : data) {
+                for (TableColumn<supp_desc, ?> col1 : cols) {
                     TableColumn col = col1;
                     String cellValue = col.getCellData(data1).toString();
                     cellValue = cellValue.toLowerCase();
@@ -179,7 +183,11 @@ public class Supplier extends Application{
         appendgrid.add(appendlbl5, 3, 2);appendgrid.add(appendtxt5, 4, 2);
         appendgrid.add(appendlbl6, 3, 3);appendgrid.add(appendtxt6, 4, 3);
         
-        
+        currMap=generalFunc.getAllCurr();
+        for (int i=0;i<currMap.size();i++){
+            appendtxt3.getItems().add(currMap.get(i));
+        }
+        appendtxt3.getSelectionModel().selectFirst();
         btnMenu3.setOnAction((ActionEvent event) -> {
            clearFields(); 
         });
@@ -189,7 +197,7 @@ public class Supplier extends Application{
             HashMap<String,String> hashSupplocaly=new HashMap<>();
             hashSupplocaly.put("Suppcode", appendtxt1.getText());
             hashSupplocaly.put("Suppname", appendtxt2.getText());
-            hashSupplocaly.put("Curr", appendtxt3.getText());
+            hashSupplocaly.put("Curr", appendtxt3.getSelectionModel().getSelectedItem());
             hashSupplocaly.put("Rate", appendtxt4.getText());
             hashSupplocaly.put("Address", appendtxt5.getText());
             hashSupplocaly.put("Mobile", appendtxt6.getText());
@@ -201,7 +209,14 @@ public class Supplier extends Application{
             if(generalFunc.checkItemCodeExistance(appendtxt1.getText())==true){
                 generalFunc.UpdateSpeciefItem(hashSupplocaly);
             }else{
-                generalFunc.AddItems(hashSupplocaly);
+                generalFunc.AddSupp(hashSupplocaly);
+                data.add(new supp_desc(
+                    hashSupplocaly.get("SupplierCode"),
+                    hashSupplocaly.get("SuppName"),
+                    hashSupplocaly.get("CompanyReference"),
+                    hashSupplocaly.get("Currency"),
+                    hashSupplocaly.get("Rate"),
+                    hashSupplocaly.get("Address")));
             }
             clearFields();
         });
@@ -256,16 +271,16 @@ public class Supplier extends Application{
                 }
             }
         });
-        appendtxt1.setText(generalFunc.getItemCode());
+       
         appendtxt1.setDisable(true);
         table.setOnMouseClicked((MouseEvent event) -> {
             if(event.getButton().equals(MouseButton.PRIMARY)){
                 if(event.getClickCount() == 2){
-                    Item_desc itemcodevar=table.getSelectionModel().getSelectedItem();
-                    specSupphash=generalFunc.getSpecifiedItem(itemcodevar.getSuppCode());
+                    supp_desc itemcodevar=table.getSelectionModel().getSelectedItem();
+                    specSupphash=generalFunc.getSpecifiedSupp(itemcodevar.getSuppCode());
                     appendtxt1.setText(specSupphash.get("Suppcode"));
                     appendtxt2.setText(specSupphash.get("Suppname"));
-                    appendtxt3.setText(specSupphash.get("Curr"));
+                    //appendtxt3.setText(specSupphash.get("Curr"));
                     appendtxt4.setText(specSupphash.get("Rate"));
                     appendtxt5.setText(specSupphash.get("Address"));
                     appendtxt6.setText(specSupphash.get("Mobile"));
@@ -303,7 +318,7 @@ public class Supplier extends Application{
     //=========clear fields
     
     //========================class item description to use it for adding to mysql
-    public static class Item_desc {
+    public static class supp_desc {
         private final SimpleStringProperty SuppCode;
         private final SimpleStringProperty SuppName;
         private final SimpleStringProperty Currency;
@@ -311,7 +326,7 @@ public class Supplier extends Application{
         private final SimpleStringProperty Address;
         private final SimpleStringProperty Mobile;
         
-        private Item_desc(String SuppCode, String SuppName, String Currency, String Rate,String Address,String Mobile) {
+        private supp_desc(String SuppCode, String SuppName, String Currency, String Rate,String Address,String Mobile) {
             this.SuppCode = new SimpleStringProperty(SuppCode);
             this.SuppName = new SimpleStringProperty(SuppName);
             this.Currency = new SimpleStringProperty(Currency);

@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 public class generalFunc {
     //==========declare function to collect company information from xml file
-   /* public static HashMap<String,String> GetCompanyInfo(){
+    public static HashMap<String,String> GetCompanyInfo(){
         HashMap<String,String> hashmapCompList=new HashMap<>();
         String sql = "SELECT * FROM company";
         
@@ -43,7 +43,7 @@ public class generalFunc {
             System.out.println(e.getMessage());
         }
         return hashmapCompList;
-    }*/
+    }
     //==========end declare function to collect company information from xml file
     //=====minimize all other applications
     public static void minimizeApps() throws AWTException{
@@ -78,6 +78,28 @@ public class generalFunc {
         }
     }
     //===================================
+    public static void AddSupp(HashMap<String,String> ItemGroupHash){
+        try{
+            String query = "INSERT INTO `sshop`.`supplier` "
+                    + "(`supp_code`, `supp_name`, `currency`, `rate`, `address`, `mobile`) "
+                    + "VALUES (?,?,?,?,?,?);";
+            PreparedStatement preparedStmt = SShop.connmysql.prepareStatement(query);
+            preparedStmt.setString (1,ItemGroupHash.get("Suppcode"));
+            preparedStmt.setString (2,ItemGroupHash.get("Suppname"));
+            preparedStmt.setString (3,ItemGroupHash.get("Curr"));
+            preparedStmt.setString (4,ItemGroupHash.get("Rate"));
+            preparedStmt.setString (5,ItemGroupHash.get("Address"));
+            preparedStmt.setString (6,ItemGroupHash.get("Mobile"));
+            
+           // preparedStmt.setString (7,ItemGroupHash.get("Supppic"));
+            preparedStmt.execute();
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+    }
     public static void InsertItemGroupMysql(HashMap<Integer,String> ItemsHash){
         try{
             String query = " insert into item_group (GroupId, GroupDesc,GroupType)"
@@ -130,6 +152,36 @@ public class generalFunc {
             
             preparedStatement = SShop.connmysql.prepareStatement(selectSQL);
             preparedStatement.setString(1, SpecifiedItemCodevar);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                SpeciefItemCodeMap.put("itemcode", rs.getString("item_code"));
+                SpeciefItemCodeMap.put("itemname", rs.getString("item_name"));
+                SpeciefItemCodeMap.put("itembar", rs.getString("item_barcode"));
+                SpeciefItemCodeMap.put("itemsupp", rs.getString("item_supp"));
+                SpeciefItemCodeMap.put("itemprice", rs.getString("item_orig_price"));
+                SpeciefItemCodeMap.put("itemgrp", rs.getString("item_group"));
+                SpeciefItemCodeMap.put("itemcol", rs.getString("Itemscol"));
+                SpeciefItemCodeMap.put("itempic", rs.getString("item_pic"));
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+        return SpeciefItemCodeMap;
+    }
+    //=================================
+    //===========================================
+    public static HashMap<String,String> getSpecifiedSupp(String SpecifiedSuppCodevar){
+        HashMap<String,String> SpeciefItemCodeMap=new HashMap<>();
+        PreparedStatement preparedStatement = null;
+        boolean boolcheckvar=false;
+        String selectSQL = "SELECT * FROM supplier WHERE supp_code = ? ";
+        try{
+            
+            preparedStatement = SShop.connmysql.prepareStatement(selectSQL);
+            preparedStatement.setString(1, SpecifiedSuppCodevar);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 SpeciefItemCodeMap.put("itemcode", rs.getString("item_code"));
@@ -206,6 +258,38 @@ public class generalFunc {
         return ItemsAllHash;
     }
     //=================================
+     //============================================
+    public static HashMap<Integer,HashMap<String,String>> getAllSupp(){
+        Integer i=0;
+        HashMap<Integer,HashMap<String,String>> ItemsAllHash = new HashMap<>();
+        HashMap<String,String> hashItemDetail =new HashMap<>();
+        PreparedStatement preparedStatement = null;
+        boolean boolcheckvar=false;
+        String selectSQL = "SELECT * from supplier";
+        try{
+            preparedStatement = SShop.connmysql.prepareStatement(selectSQL);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                hashItemDetail.put("Suppcode", rs.getString("supp_code"));
+                hashItemDetail.put("Suppname", rs.getString("supp_name"));
+                hashItemDetail.put("Curr", rs.getString("currency"));
+                hashItemDetail.put("Rate", rs.getString("rate"));
+                hashItemDetail.put("Address", rs.getString("address"));
+                hashItemDetail.put("Mobile", rs.getString("mobile"));
+                
+                hashItemDetail.put("supppic", rs.getString("supppic"));
+                ItemsAllHash.put(i, hashItemDetail);
+                i++;
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+        return ItemsAllHash;
+    }
+    //=================================
     public static Boolean checkItemCodeExistance(String ItemCodevar){
         Boolean existbool=false;
         PreparedStatement preparedStatement = null;
@@ -225,6 +309,7 @@ public class generalFunc {
         }
         return existbool;
     }
+    
     //=====================================
     public static String getItemCode(){
         PreparedStatement preparedStatement = null;
@@ -246,6 +331,28 @@ public class generalFunc {
         }
         return formatted;
     }
+    //=====================================
+    public static String getSuppCode(){
+        PreparedStatement preparedStatement = null;
+        Integer ItemNumbervar=0;
+        String formatted = null;
+        String selectSQL = "SELECT count(*) as suppcount FROM supplier order by supp_code desc limit 1";
+        try{
+            preparedStatement = SShop.connmysql.prepareStatement(selectSQL);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                ItemNumbervar=rs.getInt("suppcount");
+                formatted = String.format("%06d", ItemNumbervar);
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+        return formatted;
+    }
+    //=================================================
     public static String getItemGroupCode(){
         PreparedStatement preparedStatement = null;
         Integer ItemNumbervar=0;
