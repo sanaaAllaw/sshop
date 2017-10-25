@@ -8,18 +8,26 @@ package sshop;
 import java.time.LocalDate;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.ResizeFeatures;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  *
@@ -27,14 +35,15 @@ import javafx.stage.Stage;
  */
 public class PurchaseInvoice extends Application {
     private final TableView<Purchase> table = new TableView<>();
+    static TextField supptxt=new TextField();
     @Override
     public void start(Stage primaryStage) {
-        HBox h1=new HBox();
+        VBox v1=new VBox();
         GridPane grid1=new GridPane();
         grid1.setVgap(10);grid1.setHgap(10);
         Label PurchaseNo=new Label("Purchase No.");
         TextField purchNotxt=new TextField();
-        TextField supptxt=new TextField();
+        
         supptxt.setPromptText("Supplier Account");
         TextField supptxtname=new TextField();
         supptxtname.setPrefWidth(200);
@@ -43,6 +52,15 @@ public class PurchaseInvoice extends Application {
         DatePicker datepick1=new DatePicker(LocalDate.now());
         Label whlbl=new Label("WhareHouse");
         TextField whtxt=new TextField();
+        Button btnsave=new Button("Save");
+        Button btnLoad=new Button("Load");
+        Button btnClear=new Button("Clear");
+        Button btnPreview=new Button("Preview");
+        
+        btnsave.setId("rich-blue");btnLoad.setId("rich-blue");btnClear.setId("rich-blue");btnPreview.setId("rich-blue");
+        btnsave.setPrefWidth(150);btnLoad.setPrefWidth(150);btnClear.setPrefWidth(150);btnPreview.setPrefWidth(150);
+        
+        grid1.add(btnsave, 1, 0);grid1.add(btnLoad, 2, 0);grid1.add(btnClear, 3, 0);grid1.add(btnPreview, 4, 0);
         grid1.add(PurchaseNo, 1, 1);grid1.add(purchNotxt, 2, 1);
         grid1.add(supptxt, 1, 2);grid1.add(supptxtname, 2, 2);
         grid1.add(datelbl, 3, 2);grid1.add(datepick1, 4, 2);grid1.add(whlbl, 5, 2);
@@ -77,12 +95,21 @@ public class PurchaseInvoice extends Application {
         mobile_col.setCellValueFactory(
                 new PropertyValueFactory<>("Mobile"));
         
-        table.setItems(data);
-        table.getColumns().addAll(supp_code_col, supp_name_col, curr_col,rate_col,address_col,mobile_col);
-        h1.getChildren().add(grid1);
+        //table.setItems(data);
+        table.getColumns().addAll(purcode_col, supp_Code_col, Date_col,rate_col,address_col,mobile_col);
         
+        v1.getChildren().addAll(grid1,table);
+        v1.setSpacing(10);
+        supptxt.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() == 2){
+                    SuppGrid sgrid1=new SuppGrid();
+                    sgrid1.start(Constantes.StageSuppgrid);
+                }
+            }
+        });
         BorderPane root = new BorderPane();
-        root.setCenter(h1);
+        root.setCenter(v1);
         
         Scene scene = new Scene(root, 800, 500);
         String cssURL = this.getClass().getResource("/css/purchase.css").toExternalForm();

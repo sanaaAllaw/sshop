@@ -5,6 +5,7 @@
  */
 package sshop;
 
+import java.util.HashMap;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -23,6 +24,9 @@ public class Constantes {
     static Stage StageGroup=new Stage(StageStyle.DECORATED);
     static Stage StageCust=new Stage(StageStyle.DECORATED);
     static Stage StagePIV=new Stage(StageStyle.DECORATED);
+    static Stage StageSuppgrid=new Stage(StageStyle.DECORATED);
+    static HashMap<Integer,String> statichashmapsuppreturn=new HashMap<>();
+    
     static double height;
     static double width;
     static double taskBarHeight;

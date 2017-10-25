@@ -21,6 +21,24 @@ import java.util.HashMap;
  */
 
 public class generalFunc {
+    public static HashMap<String,String> GetAllSupp(){
+        HashMap<String,String> hashmapsuppList=new HashMap<>();
+        String sql = "SELECT * FROM supplier";
+        
+        try (
+                Statement stmt  = SShop.connmysql.createStatement();
+                ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // loop through the result set
+            while (rs.next()) {
+                hashmapsuppList.put("suppname", String.valueOf(rs.getString("supp_name")));
+               
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return hashmapsuppList;
+    }
     //==========declare function to collect company information from xml file
     public static HashMap<String,String> GetCompanyInfo(){
         HashMap<String,String> hashmapCompList=new HashMap<>();
