@@ -8,7 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+<<<<<<< HEAD
     <jar href="SShop.jar" size="707868" download="eager" />
+=======
+    <jar href="SShop.jar" size="705968" download="eager" />
+>>>>>>> dd3b59a89b70022219204c2af7fe756040963ec5
     <jar href="lib\com.mysql.jdbc_5.1.5.jar" size="676712" download="eager" />
     <jar href="lib\eclipselink.jar" size="8478776" download="eager" />
     <jar href="lib\javax.persistence_2.1.0.v201304241213.jar" size="164637" download="eager" />
