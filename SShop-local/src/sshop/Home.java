@@ -100,6 +100,10 @@ public class Home extends Application {
              Customer cus1=new Customer();
              cus1.start(Constantes.StageCust);
         });
+        btnPUR.setOnAction((ActionEvent event) -> {
+             PurchaseInvoice PIV1=new PurchaseInvoice();
+             PIV1.start(Constantes.StagePIV);
+        });
         //================end button actions
         //==================================================grid contains buttons
         StackPane root = new StackPane();

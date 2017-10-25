@@ -80,6 +80,9 @@ public class generalFunc {
     public static String getRateBuCurr(String fromcurrvar,String tocurrvar){
         String ratevar="";
         PreparedStatement preparedStmt = null;
+        if(fromcurrvar==tocurrvar){
+            return "1";
+        }
       String sql = "SELECT ratevalue FROM rate where fromcurr= ? and tocurr= ?";
         
         try {

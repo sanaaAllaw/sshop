@@ -227,38 +227,38 @@ public class Supplier extends Application{
         });
         //====================================================add items to mysql
         //===================================================================================
-        TableColumn item_code_col = new TableColumn("Supplier Code");
-        item_code_col.setMinWidth(100);
-        item_code_col.setCellValueFactory(
+        TableColumn supp_code_col = new TableColumn("Supplier Code");
+        supp_code_col.setMinWidth(100);
+        supp_code_col.setCellValueFactory(
                 new PropertyValueFactory<>("SuppCode"));
         
-        TableColumn item_name_col = new TableColumn("Supplier Name");
-        item_name_col.setMinWidth(100);
-        item_name_col.setCellValueFactory(
+        TableColumn supp_name_col = new TableColumn("Supplier Name");
+        supp_name_col.setMinWidth(100);
+        supp_name_col.setCellValueFactory(
                 new PropertyValueFactory<>("SuppName"));
         
-        TableColumn item_barcode_col = new TableColumn("Currency");
-        item_barcode_col.setMinWidth(200);
-        item_barcode_col.setCellValueFactory(
+        TableColumn curr_col = new TableColumn("Currency");
+        curr_col.setMinWidth(200);
+        curr_col.setCellValueFactory(
                 new PropertyValueFactory<>("Curr"));
         
-        TableColumn item_supp_col = new TableColumn("Rate");
-        item_supp_col.setMinWidth(200);
-        item_supp_col.setCellValueFactory(
+        TableColumn rate_col = new TableColumn("Rate");
+        rate_col.setMinWidth(200);
+        rate_col.setCellValueFactory(
                 new PropertyValueFactory<>("Rate"));
         
-        TableColumn item_orig_col = new TableColumn("Address");
-        item_orig_col.setMinWidth(200);
-        item_orig_col.setCellValueFactory(
+        TableColumn address_col = new TableColumn("Address");
+        address_col.setMinWidth(200);
+        address_col.setCellValueFactory(
                 new PropertyValueFactory<>("Address"));
         
-        TableColumn item_group_col = new TableColumn("Mobile");
-        item_group_col.setMinWidth(200);
-        item_group_col.setCellValueFactory(
+        TableColumn mobile_col = new TableColumn("Mobile");
+        mobile_col.setMinWidth(200);
+        mobile_col.setCellValueFactory(
                 new PropertyValueFactory<>("Mobile"));
         
         table.setItems(data);
-        table.getColumns().addAll(item_code_col, item_name_col, item_barcode_col,item_supp_col,item_orig_col,item_group_col);
+        table.getColumns().addAll(supp_code_col, supp_name_col, curr_col,rate_col,address_col,mobile_col);
         hbox1.getChildren().addAll(appendgrid,imageview1);
         v1.getChildren().addAll(buttonsMenu,hbox1,searchtxt,table);
         v1.setSpacing(10);
