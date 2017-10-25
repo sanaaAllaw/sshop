@@ -77,6 +77,26 @@ public class generalFunc {
             System.err.println(e.getMessage());
         }
     }
+    public static String getRateBuCurr(String fromcurrvar,String tocurrvar){
+        String ratevar="";
+        PreparedStatement preparedStmt = null;
+      String sql = "SELECT ratevalue FROM rate where fromcurr= ? and tocurr= ?";
+        
+        try {
+                preparedStmt = SShop.connmysql.prepareStatement(sql);
+                preparedStmt.setString (1,fromcurrvar);
+                preparedStmt.setString (2,tocurrvar);
+                ResultSet rs    = preparedStmt.executeQuery();
+            
+            // loop through the result set
+            if (rs.next()) {
+                ratevar=rs.getString("ratevalue");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return ratevar;
+    }
     //===================================
     public static void AddSupp(HashMap<String,String> ItemGroupHash){
         try{

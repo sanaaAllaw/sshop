@@ -11,6 +11,8 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -289,8 +291,17 @@ public class Supplier extends Application{
             }
             
         });
-        
-        
+        String ratevarr=generalFunc.getRateBuCurr(
+                appendtxt3.getSelectionModel().getSelectedItem(),"LBP");
+        appendtxt4.setText(ratevarr);
+        appendtxt3.valueProperty().addListener(new ChangeListener<String>() {
+        @Override 
+        public void changed(ObservableValue ov, String t, String t1) {
+          String ratevarr=generalFunc.getRateBuCurr(
+                appendtxt3.getSelectionModel().getSelectedItem(),"LBP");
+           appendtxt4.setText(ratevarr);
+        }    
+    });
         //============================================
         
         StackPane root = new StackPane();
