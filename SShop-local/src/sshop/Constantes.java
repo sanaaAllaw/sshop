@@ -25,6 +25,7 @@ public class Constantes {
     static Stage StageCust=new Stage(StageStyle.DECORATED);
     static Stage StagePIV=new Stage(StageStyle.DECORATED);
     static Stage StageSuppgrid=new Stage(StageStyle.DECORATED);
+    static Stage StageItemgrid=new Stage(StageStyle.DECORATED);
     static HashMap<Integer,String> statichashmapsuppreturn=new HashMap<>();
     
     static double height;

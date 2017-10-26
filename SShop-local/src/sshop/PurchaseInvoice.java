@@ -10,12 +10,15 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableView.ResizeFeatures;
 import javafx.scene.control.TextField;
@@ -34,11 +37,15 @@ import javafx.util.Callback;
  * @author skynete
  */
 public class PurchaseInvoice extends Application {
-    private final TableView<Purchase> table = new TableView<>();
+    private final TableView<purchase> table = new TableView<>();
+    final ObservableList<purchase> data1 = FXCollections.observableArrayList();
     static TextField supptxt=new TextField();
     @Override
     public void start(Stage primaryStage) {
         VBox v1=new VBox();
+        data1.add(new purchase("", "", "",
+                "", "", "", "",
+                "", ""));
         GridPane grid1=new GridPane();
         grid1.setVgap(10);grid1.setHgap(10);
         Label PurchaseNo=new Label("Purchase No.");
@@ -95,9 +102,26 @@ public class PurchaseInvoice extends Application {
         mobile_col.setCellValueFactory(
                 new PropertyValueFactory<>("Mobile"));
         
-        //table.setItems(data);
+        table.setItems(data1);
         table.getColumns().addAll(purcode_col, supp_Code_col, Date_col,rate_col,address_col,mobile_col);
-        
+        table.setEditable(true);
+        table.getSelectionModel().setCellSelectionEnabled(true);  // selects cell only, not the whole row
+        table.setOnMouseClicked((MouseEvent click) -> {
+            if (click.getClickCount() == 2) {
+                @SuppressWarnings("rawtypes")
+                        TablePosition pos = table.getSelectionModel().getSelectedCells().get(0);
+                int row = pos.getRow();
+                int col = pos.getColumn();
+                @SuppressWarnings("rawtypes")
+                        TableColumn column = pos.getTableColumn();
+                String val = column.getCellData(row).toString(); System.out.println("Selected Value, " + val + ", Column: " + col + ", Row: " + row);
+                if ( col == 0 ) {
+                    Itemgrid Igrid1=new Itemgrid();
+                    Igrid1.start(Constantes.StageItemgrid);
+                }
+                
+            }
+        });
         v1.getChildren().addAll(grid1,table);
         v1.setSpacing(10);
         supptxt.setOnMouseClicked((MouseEvent mouseEvent) -> {
@@ -114,7 +138,7 @@ public class PurchaseInvoice extends Application {
         Scene scene = new Scene(root, 800, 500);
         String cssURL = this.getClass().getResource("/css/purchase.css").toExternalForm();
         scene.getStylesheets().add(cssURL);
-       
+        
         primaryStage.setTitle("");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -126,7 +150,7 @@ public class PurchaseInvoice extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-     public static class purchase {
+    public static class purchase {
         private final SimpleStringProperty pivno;
         private final SimpleStringProperty suppcode;
         private final SimpleStringProperty date;
@@ -137,7 +161,7 @@ public class PurchaseInvoice extends Application {
         private final SimpleStringProperty discount;
         private final SimpleStringProperty curr;
         
-        private purchase(String pivno, String suppcode, String date, 
+        private purchase(String pivno, String suppcode, String date,
                 String wh,String item,String qty,String price,String discount,String curr) {
             this.pivno = new SimpleStringProperty(pivno);
             this.suppcode = new SimpleStringProperty(suppcode);
@@ -149,7 +173,7 @@ public class PurchaseInvoice extends Application {
             this.discount = new SimpleStringProperty(discount);
             this.curr = new SimpleStringProperty(curr);
         }
-         public String getPivno() {
+        public String getPivno() {
             return pivno.get();
         }
         public void setPivno(String Npivno) {

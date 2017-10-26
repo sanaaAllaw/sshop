@@ -8,7 +8,6 @@ package sshop;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +20,26 @@ import java.util.HashMap;
  */
 
 public class generalFunc {
+     public static HashMap<String,String> GetAllItems(){
+        HashMap<String,String> hashmapitemList=new HashMap<>();
+        String sql = "SELECT * FROM items";
+        
+        try (
+                Statement stmt  = SShop.connmysql.createStatement();
+                ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // loop through the result set
+            while (rs.next()) {
+                hashmapitemList.put("itemcode", String.valueOf(rs.getString("item_code")));
+                hashmapitemList.put("itemname", String.valueOf(rs.getString("item_name")));
+                hashmapitemList.put("itemprice", String.valueOf(rs.getString("item_orig_price")));
+               
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return hashmapitemList;
+    }
     public static HashMap<String,String> GetAllSupp(){
         HashMap<String,String> hashmapsuppList=new HashMap<>();
         String sql = "SELECT * FROM supplier";
