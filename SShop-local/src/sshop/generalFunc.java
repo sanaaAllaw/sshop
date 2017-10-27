@@ -160,6 +160,30 @@ public class generalFunc {
             System.err.println(e.getMessage());
         }
     }
+    public static void Addpiv(HashMap<String,String> pivGroupHash){
+        try{
+            String query = "INSERT INTO `sshop`.`purchase` "
+                    + "(`pivno`,  `suppcode`, `datevar`, `item`, `qty`, `price`, `discount`, `curr`)"
+                    + " VALUES (?,?,?,?,?,?,?,?);";
+            PreparedStatement preparedStmt = SShop.connmysql.prepareStatement(query);
+            preparedStmt.setString (1,pivGroupHash.get("pivno"));
+            preparedStmt.setString (2,pivGroupHash.get("suppcode"));
+            preparedStmt.setString (3,pivGroupHash.get("date"));
+            preparedStmt.setString (4,pivGroupHash.get("item"));
+            preparedStmt.setString (5,pivGroupHash.get("qty"));
+            preparedStmt.setString (6,pivGroupHash.get("price"));
+            preparedStmt.setString (7,pivGroupHash.get("discount"));
+            preparedStmt.setString (8,pivGroupHash.get("curr"));
+            
+           // preparedStmt.setString (7,ItemGroupHash.get("Supppic"));
+            preparedStmt.execute();
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+    }
     public static void InsertItemGroupMysql(HashMap<Integer,String> ItemsHash){
         try{
             String query = " insert into item_group (GroupId, GroupDesc,GroupType)"
@@ -392,6 +416,26 @@ public class generalFunc {
         return formatted;
     }
     //=====================================
+     public static String getPIVCode(){
+        PreparedStatement preparedStatement = null;
+        Integer ItemNumbervar=0;
+        String formatted = null;
+        String selectSQL = "SELECT count(*) as pivcount FROM purchase order by pivno desc limit 1";
+        try{
+            preparedStatement = SShop.connmysql.prepareStatement(selectSQL);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                ItemNumbervar=rs.getInt("pivcount");
+                formatted = String.format("%06d", ItemNumbervar);
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+        return formatted;
+    }
     public static String getSuppCode(){
         PreparedStatement preparedStatement = null;
         Integer ItemNumbervar=0;

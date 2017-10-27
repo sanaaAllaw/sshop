@@ -5,14 +5,17 @@
 */
 package sshop;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.HashMap;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -20,17 +23,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.ResizeFeatures;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 /**
  *
@@ -38,8 +39,13 @@ import javafx.util.Callback;
  */
 public class PurchaseInvoice extends Application {
     private final TableView<purchase> table = new TableView<>();
-    final ObservableList<purchase> data1 = FXCollections.observableArrayList();
+    static  ObservableList<purchase> data1 = FXCollections.observableArrayList();
+    static  ObservableList<String> currency = FXCollections.observableArrayList();
+    static  ObservableList<purchase> datatest = FXCollections.observableArrayList();
+    HashMap<String,String> pivGroupHash=new HashMap<>();
+    TextField supptxtname=new TextField();
     static TextField supptxt=new TextField();
+    HashMap<Integer, String> currMap=new HashMap<>();
     @Override
     public void start(Stage primaryStage) {
         VBox v1=new VBox();
@@ -50,9 +56,9 @@ public class PurchaseInvoice extends Application {
         grid1.setVgap(10);grid1.setHgap(10);
         Label PurchaseNo=new Label("Purchase No.");
         TextField purchNotxt=new TextField();
-        
+        purchNotxt.setDisable(true);
         supptxt.setPromptText("Supplier Account");
-        TextField supptxtname=new TextField();
+        
         supptxtname.setPrefWidth(200);
         supptxtname.setDisable(true);
         Label datelbl=new Label("Date");
@@ -63,7 +69,32 @@ public class PurchaseInvoice extends Application {
         Button btnLoad=new Button("Load");
         Button btnClear=new Button("Clear");
         Button btnPreview=new Button("Preview");
-        
+        btnClear.setOnAction((ActionEvent event) -> {
+           clearFields(); 
+           data1.clear();
+        });
+        btnsave.setOnAction((ActionEvent event) -> {
+            LocalDate localDate = datepick1.getValue();
+            Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+            Date date = Date.from(instant);
+            for (purchase data11 : data1) {
+                pivGroupHash.put("pivno", purchNotxt.getText());
+                pivGroupHash.put("suppcode", purchNotxt.getText());
+                pivGroupHash.put("date", localDate.toString());
+                pivGroupHash.put("item", data11.getItem());
+                pivGroupHash.put("qty", data11.getQty());
+                pivGroupHash.put("price", data11.getPrice());
+                if(!"".equals(data11.getDiscount())){
+                    pivGroupHash.put("discount", data11.getDiscount());
+                }else{
+                    pivGroupHash.put("discount", "0");
+                }
+                
+                pivGroupHash.put("curr", data11.getCurr());
+                generalFunc.Addpiv(pivGroupHash);
+            }
+            clearFields();
+        });
         btnsave.setId("rich-blue");btnLoad.setId("rich-blue");btnClear.setId("rich-blue");btnPreview.setId("rich-blue");
         btnsave.setPrefWidth(150);btnLoad.setPrefWidth(150);btnClear.setPrefWidth(150);btnPreview.setPrefWidth(150);
         
@@ -72,30 +103,36 @@ public class PurchaseInvoice extends Application {
         grid1.add(supptxt, 1, 2);grid1.add(supptxtname, 2, 2);
         grid1.add(datelbl, 3, 2);grid1.add(datepick1, 4, 2);grid1.add(whlbl, 5, 2);
         
-        TableColumn purcode_col = new TableColumn("Purchase No");
+        TableColumn purcode_col = new TableColumn("Item Code");
         purcode_col.setMinWidth(100);
         purcode_col.setCellValueFactory(
-                new PropertyValueFactory<>("pivno"));
+                new PropertyValueFactory<>("item"));
         
-        TableColumn supp_Code_col = new TableColumn("Supplier Code");
+        TableColumn supp_Code_col = new TableColumn("Qty");
         supp_Code_col.setMinWidth(100);
         supp_Code_col.setCellValueFactory(
-                new PropertyValueFactory<>("suppcode"));
+                new PropertyValueFactory<>("qty"));
         
         TableColumn Date_col = new TableColumn("Date");
         Date_col.setMinWidth(200);
         Date_col.setCellValueFactory(
                 new PropertyValueFactory<>("date"));
         
-        TableColumn rate_col = new TableColumn("Rate");
+        TableColumn rate_col = new TableColumn("Price");
         rate_col.setMinWidth(200);
         rate_col.setCellValueFactory(
-                new PropertyValueFactory<>("Rate"));
+                new PropertyValueFactory<>("price"));
         
-        TableColumn address_col = new TableColumn("Address");
+        TableColumn address_col = new TableColumn("Currency");
         address_col.setMinWidth(200);
         address_col.setCellValueFactory(
-                new PropertyValueFactory<>("Address"));
+                new PropertyValueFactory<>("curr"));
+        currMap=generalFunc.getAllCurr();
+        for (int i=0;i<currMap.size();i++){
+            currency.add(currMap.get(i));
+        }
+        address_col.setCellFactory(ComboBoxTableCell.forTableColumn(currency));
+
         
         TableColumn mobile_col = new TableColumn("Mobile");
         mobile_col.setMinWidth(200);
@@ -104,7 +141,7 @@ public class PurchaseInvoice extends Application {
         
         table.setItems(data1);
         table.getColumns().addAll(purcode_col, supp_Code_col, Date_col,rate_col,address_col,mobile_col);
-        table.setEditable(true);
+        
         table.getSelectionModel().setCellSelectionEnabled(true);  // selects cell only, not the whole row
         table.setOnMouseClicked((MouseEvent click) -> {
             if (click.getClickCount() == 2) {
@@ -116,12 +153,16 @@ public class PurchaseInvoice extends Application {
                         TableColumn column = pos.getTableColumn();
                 String val = column.getCellData(row).toString(); System.out.println("Selected Value, " + val + ", Column: " + col + ", Row: " + row);
                 if ( col == 0 ) {
+                    Constantes.indexvar=table.getSelectionModel().getSelectedIndex();
                     Itemgrid Igrid1=new Itemgrid();
                     Igrid1.start(Constantes.StageItemgrid);
+                    
                 }
                 
             }
         });
+        
+       table.setEditable(true); 
         v1.getChildren().addAll(grid1,table);
         v1.setSpacing(10);
         supptxt.setOnMouseClicked((MouseEvent mouseEvent) -> {
@@ -132,10 +173,11 @@ public class PurchaseInvoice extends Application {
                 }
             }
         });
+        purchNotxt.setText(generalFunc.getPIVCode());
         BorderPane root = new BorderPane();
         root.setCenter(v1);
         
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, 1000, 500);
         String cssURL = this.getClass().getResource("/css/purchase.css").toExternalForm();
         scene.getStylesheets().add(cssURL);
         
@@ -161,7 +203,7 @@ public class PurchaseInvoice extends Application {
         private final SimpleStringProperty discount;
         private final SimpleStringProperty curr;
         
-        private purchase(String pivno, String suppcode, String date,
+        purchase(String pivno, String suppcode, String date,
                 String wh,String item,String qty,String price,String discount,String curr) {
             this.pivno = new SimpleStringProperty(pivno);
             this.suppcode = new SimpleStringProperty(suppcode);
@@ -230,5 +272,9 @@ public class PurchaseInvoice extends Application {
             curr.set(NCurr);
         }
         
+    }
+    public void clearFields(){
+        supptxtname.clear();
+       DatePicker datepick1=new DatePicker(LocalDate.now());
     }
 }

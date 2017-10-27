@@ -6,6 +6,8 @@
 package sshop;
 
 import java.util.HashMap;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -26,7 +28,10 @@ public class Constantes {
     static Stage StagePIV=new Stage(StageStyle.DECORATED);
     static Stage StageSuppgrid=new Stage(StageStyle.DECORATED);
     static Stage StageItemgrid=new Stage(StageStyle.DECORATED);
+    static Integer indexvar;
+    static String currentItemSelected;
     static HashMap<Integer,String> statichashmapsuppreturn=new HashMap<>();
+    static  ObservableList<PurchaseInvoice.purchase> statichashmapItemsreturn=FXCollections.observableArrayList();
     
     static double height;
     static double width;
