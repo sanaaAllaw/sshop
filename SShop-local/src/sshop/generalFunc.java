@@ -8,7 +8,6 @@ package sshop;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +20,44 @@ import java.util.HashMap;
  */
 
 public class generalFunc {
+     public static HashMap<String,String> GetAllItems(){
+        HashMap<String,String> hashmapitemList=new HashMap<>();
+        String sql = "SELECT * FROM items";
+        
+        try (
+                Statement stmt  = SShop.connmysql.createStatement();
+                ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // loop through the result set
+            while (rs.next()) {
+                hashmapitemList.put("itemcode", String.valueOf(rs.getString("item_code")));
+                hashmapitemList.put("itemname", String.valueOf(rs.getString("item_name")));
+                hashmapitemList.put("itemprice", String.valueOf(rs.getString("item_orig_price")));
+               
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return hashmapitemList;
+    }
+    public static HashMap<String,String> GetAllSupp(){
+        HashMap<String,String> hashmapsuppList=new HashMap<>();
+        String sql = "SELECT * FROM supplier";
+        
+        try (
+                Statement stmt  = SShop.connmysql.createStatement();
+                ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // loop through the result set
+            while (rs.next()) {
+                hashmapsuppList.put("suppname", String.valueOf(rs.getString("supp_name")));
+               
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return hashmapsuppList;
+    }
     //==========declare function to collect company information from xml file
     public static HashMap<String,String> GetCompanyInfo(){
         HashMap<String,String> hashmapCompList=new HashMap<>();
@@ -77,6 +114,29 @@ public class generalFunc {
             System.err.println(e.getMessage());
         }
     }
+    public static String getRateBuCurr(String fromcurrvar,String tocurrvar){
+        String ratevar="";
+        PreparedStatement preparedStmt = null;
+        if(fromcurrvar==tocurrvar){
+            return "1";
+        }
+      String sql = "SELECT ratevalue FROM rate where fromcurr= ? and tocurr= ?";
+        
+        try {
+                preparedStmt = SShop.connmysql.prepareStatement(sql);
+                preparedStmt.setString (1,fromcurrvar);
+                preparedStmt.setString (2,tocurrvar);
+                ResultSet rs    = preparedStmt.executeQuery();
+            
+            // loop through the result set
+            if (rs.next()) {
+                ratevar=rs.getString("ratevalue");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return ratevar;
+    }
     //===================================
     public static void AddSupp(HashMap<String,String> ItemGroupHash){
         try{
@@ -90,6 +150,30 @@ public class generalFunc {
             preparedStmt.setString (4,ItemGroupHash.get("Rate"));
             preparedStmt.setString (5,ItemGroupHash.get("Address"));
             preparedStmt.setString (6,ItemGroupHash.get("Mobile"));
+            
+           // preparedStmt.setString (7,ItemGroupHash.get("Supppic"));
+            preparedStmt.execute();
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+    }
+    public static void Addpiv(HashMap<String,String> pivGroupHash){
+        try{
+            String query = "INSERT INTO `sshop`.`purchase` "
+                    + "(`pivno`,  `suppcode`, `datevar`, `item`, `qty`, `price`, `discount`, `curr`)"
+                    + " VALUES (?,?,?,?,?,?,?,?);";
+            PreparedStatement preparedStmt = SShop.connmysql.prepareStatement(query);
+            preparedStmt.setString (1,pivGroupHash.get("pivno"));
+            preparedStmt.setString (2,pivGroupHash.get("suppcode"));
+            preparedStmt.setString (3,pivGroupHash.get("date"));
+            preparedStmt.setString (4,pivGroupHash.get("item"));
+            preparedStmt.setString (5,pivGroupHash.get("qty"));
+            preparedStmt.setString (6,pivGroupHash.get("price"));
+            preparedStmt.setString (7,pivGroupHash.get("discount"));
+            preparedStmt.setString (8,pivGroupHash.get("curr"));
             
            // preparedStmt.setString (7,ItemGroupHash.get("Supppic"));
             preparedStmt.execute();
@@ -332,6 +416,26 @@ public class generalFunc {
         return formatted;
     }
     //=====================================
+     public static String getPIVCode(){
+        PreparedStatement preparedStatement = null;
+        Integer ItemNumbervar=0;
+        String formatted = null;
+        String selectSQL = "SELECT count(*) as pivcount FROM purchase order by pivno desc limit 1";
+        try{
+            preparedStatement = SShop.connmysql.prepareStatement(selectSQL);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                ItemNumbervar=rs.getInt("pivcount");
+                formatted = String.format("%06d", ItemNumbervar);
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+        return formatted;
+    }
     public static String getSuppCode(){
         PreparedStatement preparedStatement = null;
         Integer ItemNumbervar=0;

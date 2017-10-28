@@ -46,7 +46,7 @@ public class SShop extends Application {
         connmysql=JDBCMysql.connectmysql();
         //==============declare variables and components
         CompListinfo=new HashMap<>();
-        CompListinfo=generalFunc.GetCompanyInfo();
+       // CompListinfo=generalFunc.GetCompanyInfo();
         BorderPane root = new BorderPane();
         VBox vbox1=new VBox();
         BorderPane border1=new BorderPane();
@@ -120,7 +120,7 @@ public class SShop extends Application {
         //===========end add values to labels
         imgview1.setImage(new Image("/pictures/Girls-Red-Dress-icon.png"));
         imgview2.setImage(new Image("/pictures/Girls-Blue-Dress-icon.png"));
-        CompListinfo=generalFunc.GetCompanyInfo();
+       // CompListinfo=generalFunc.GetCompanyInfo();
         Scene scene = new Scene(root, 500, 350);
         String cssURL = this.getClass().getResource("/css/sshop.css").toExternalForm();
         scene.getStylesheets().add(cssURL);
