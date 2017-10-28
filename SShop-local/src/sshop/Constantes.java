@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package sshop;
 
 import java.util.HashMap;
@@ -28,6 +28,10 @@ public class Constantes {
     static Stage StagePIV=new Stage(StageStyle.DECORATED);
     static Stage StageSuppgrid=new Stage(StageStyle.DECORATED);
     static Stage StageItemgrid=new Stage(StageStyle.DECORATED);
+    static Stage StageProducts=new Stage(StageStyle.DECORATED);
+    static Stage Stagesett=new Stage(StageStyle.DECORATED);
+    static Stage StageReport=new Stage(StageStyle.DECORATED);
+    static Stage Stageslm=new Stage(StageStyle.DECORATED);
     static Integer indexvar;
     static String currentItemSelected;
     static HashMap<Integer,String> statichashmapsuppreturn=new HashMap<>();

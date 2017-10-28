@@ -8,11 +8,13 @@ package sshop;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Properties;
 
 /**
  *
@@ -160,6 +162,24 @@ public class generalFunc {
             System.err.println(e.getMessage());
         }
     }
+    public static HashMap<String,String> getallcompInfo(){
+        HashMap<String,String> compHashMap=new HashMap<>();
+        try{
+      Properties p = new Properties();
+      p.load(new FileInputStream("src/config/config.ini"));
+      compHashMap.put("name",p.getProperty("name"));
+      compHashMap.put("phone",p.getProperty("phone"));
+      compHashMap.put("mobile",p.getProperty("mobile"));
+      compHashMap.put("fax",p.getProperty("fax"));
+      compHashMap.put("capital",p.getProperty("capital"));
+      
+      
+      }
+    catch (Exception e) {
+      System.out.println(e);
+      }
+        return compHashMap;
+    }
     public static void Addpiv(HashMap<String,String> pivGroupHash){
         try{
             String query = "INSERT INTO `sshop`.`purchase` "
@@ -192,6 +212,29 @@ public class generalFunc {
             preparedStmt.setString (1,ItemsHash.get(0));
             preparedStmt.setString (2,ItemsHash.get(1));
             preparedStmt.setString (3,ItemsHash.get(2));
+            preparedStmt.execute();
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+    }
+      public static void InsertUserMysql(HashMap<Integer,String> userHash){
+        try{
+            String query = " INSERT INTO `sshop`.`users` (`firstname`, `LastName`, `Username`,"
+                    + " `Password`, `Address`, `Phone`, `Mobile`, `Email`, `login_status`)"
+                    + " VALUES (?,?,?,?,?,?,?,?,?);";
+            PreparedStatement preparedStmt = SShop.connmysql.prepareStatement(query);
+            preparedStmt.setString (1,userHash.get(0));
+            preparedStmt.setString (2,userHash.get(1));
+            preparedStmt.setString (3,userHash.get(2));
+            preparedStmt.setString (4,MD5(userHash.get(3)));
+            preparedStmt.setString (5,userHash.get(4));
+            preparedStmt.setString (6,"");
+            preparedStmt.setString (7,"");
+            preparedStmt.setString (8,userHash.get(5));
+            preparedStmt.setString (9,"");
             preparedStmt.execute();
         }
         catch (Exception e)

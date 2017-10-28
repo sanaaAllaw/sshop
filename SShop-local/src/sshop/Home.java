@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -56,12 +57,20 @@ public class Home extends Application {
         btnITM.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/pictures/items.png"))));
         Button btnPUR =new Button("Purchase");btnPUR.setPrefWidth(170);btnPUR.setId("rich-blue");
         btnPUR.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/pictures/money.png"))));
-        Button btnCUR =new Button("Currency");btnCUR.setPrefWidth(170);btnCUR.setId("rich-blue");
+        Button btnCUR =new Button("Sale Item");btnCUR.setPrefWidth(170);btnCUR.setId("rich-blue");
         btnCUR.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/pictures/dollar.png"))));
-        Button btnRate =new Button("Rate");btnRate.setPrefWidth(170);btnRate.setId("rich-blue");
+        Button btnRate =new Button("Transaction");btnRate.setPrefWidth(170);btnRate.setId("rich-blue");
         btnRate.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/pictures/wallet.png"))));
         Button btnEMP =new Button("Operator");btnEMP.setPrefWidth(170);btnEMP.setId("rich-blue");
         btnEMP.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/pictures/oper.png"))));
+        Button btnPRD =new Button("Products");btnPRD.setPrefWidth(170);btnPRD.setId("rich-blue");
+        btnPRD.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/pictures/product.png"))));
+        Button btnsett =new Button("Settings");btnsett.setPrefWidth(170);btnsett.setId("rich-blue");
+        btnsett.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/pictures/settings.png"))));
+        Button btnreport =new Button("Report");btnreport.setPrefWidth(170);btnreport.setId("rich-blue");
+        btnreport.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/pictures/seo.png"))));
+        Button btnSlm =new Button("Salesman");btnSlm.setPrefWidth(170);btnSlm.setId("rich-blue");
+        btnSlm.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/pictures/Office-Customer-Male-Light-icon.png"))));
         
         grid1.add(btnLogout, 1, 1);
         grid1.add(btnExit, 1, 2);
@@ -73,6 +82,10 @@ public class Home extends Application {
         grid1.add(btnCUR, 1, 8);
         grid1.add(btnRate, 1, 9);
         grid1.add(btnEMP, 1, 10);
+        grid1.add(btnPRD, 1, 11);
+        grid1.add(btnsett, 1, 12);
+        grid1.add(btnreport, 1, 13);
+        grid1.add(btnSlm, 1, 14);
         //===================button actions
         btnLogout.setOnAction((ActionEvent event) -> {
             
@@ -87,6 +100,14 @@ public class Home extends Application {
         });
         btnExit.setOnAction((ActionEvent event) -> {
              System.exit(0);
+        });
+        btnSlm.setOnAction((ActionEvent event) -> {
+             salesman slm1=new salesman();
+             slm1.start(Constantes.Stageslm);
+        });
+        btnsett.setOnAction((ActionEvent event) -> {
+             settings sset1=new settings();
+             sset1.start(Constantes.Stagesett);
         });
         btnITM.setOnAction((ActionEvent event) -> {
              Items item1=new Items();
@@ -104,13 +125,37 @@ public class Home extends Application {
              PurchaseInvoice PIV1=new PurchaseInvoice();
              PIV1.start(Constantes.StagePIV);
         });
+         btnCUR.setOnAction((ActionEvent event) -> {
+             saleItem sale1=new saleItem();
+             sale1.start(Constantes.StagePIV);
+        });
+         btnreport.setOnAction((ActionEvent event) -> {
+             report report1=new report();
+             report1.start(Constantes.StageReport);
+        });
+         btnRate.setOnAction((ActionEvent event) -> {
+             transactions trs1=new transactions();
+            try {
+                trs1.start(Constantes.StagePIV);
+            } catch (SQLException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+         btnPRD.setOnAction((ActionEvent event) -> {
+             products prd1=new products();
+            try {
+                prd1.start(Constantes.StageProducts);
+            } catch (SQLException ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         //================end button actions
         //==================================================grid contains buttons
         StackPane root = new StackPane();
         root.getChildren().add(grid1);
         
         Scene scene = new Scene(root, 200, Constantes.height);
-        String cssURL = this.getClass().getResource("/css/home.css").toExternalForm();
+        String cssURL = this.getClass().getResource("/css/items.css").toExternalForm();
         scene.getStylesheets().add(cssURL);
         primaryStage.setX(0);
         primaryStage.setY(0);

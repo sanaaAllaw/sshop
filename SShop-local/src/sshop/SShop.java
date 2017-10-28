@@ -31,7 +31,7 @@ import javafx.scene.input.KeyEvent;
  * @author skynete
  */
 public class SShop extends Application {
-    
+    HashMap<String,String> compHashMap=new HashMap<>();
     static HashMap<String,String> CompListinfo;
     Conn connectionvar=new Conn();
     JDBCMysql jdbcConn=new JDBCMysql();
@@ -40,7 +40,7 @@ public class SShop extends Application {
     static Connection connmysql ;
     @Override
     public void start(Stage primaryStage) throws AWTException {
-       
+       compHashMap=generalFunc.getallcompInfo();
         generalFunc.minimizeApps();
         conn=connectionvar.connect();
         connmysql=JDBCMysql.connectmysql();
@@ -104,9 +104,9 @@ public class SShop extends Application {
         grid1.add(error, 6, 8);
         //================end assign items to parents
         //=========add values to labels
-        lb1.setText("Name: "+CompListinfo.get("name"));
-        lb2.setText("Address: "+CompListinfo.get("address"));
-        lb3.setText("Capital: "+CompListinfo.get("capital"));
+        lb1.setText("Name: "+compHashMap.get("name"));
+        lb2.setText("Mobile: "+compHashMap.get("mobile"));
+        lb3.setText("Capital: "+compHashMap.get("capital"));
         loginbtn.setOnAction((ActionEvent event) -> {
              if(generalFunc.checkLogin(usertxt.getText(), passtxt.getText())==true){
                  error.setText("Succeful login");
