@@ -75,7 +75,11 @@ public class FadeApp extends Application {
 
                 updateMessage("Finding tasks . . .");
                 for (int i = 0; i < availableFriends.size(); i++) {
+<<<<<<< HEAD
                     Thread.sleep(10);
+=======
+                    Thread.sleep(2000);
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
                     updateProgress(i + 1, availableFriends.size());
                     String nextFriend = availableFriends.get(i);
                     foundFriends.add(nextFriend);

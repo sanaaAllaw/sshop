@@ -513,6 +513,7 @@ public class Supplier extends Application {
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         
+<<<<<<< HEAD
         
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(label, sear_txt,table, hb);
@@ -530,6 +531,126 @@ public class Supplier extends Application {
         stage.setScene(scene);
       
         stage.show();
+=======
+        currMap=generalFunc.getAllCurr();
+        for (int i=0;i<currMap.size();i++){
+            appendtxt3.getItems().add(currMap.get(i));
+        }
+        appendtxt3.getSelectionModel().selectFirst();
+        btnMenu3.setOnAction((ActionEvent event) -> {
+           clearFields(); 
+        });
+       
+        //=============================accept
+        btnMenu1.setOnAction((ActionEvent event) -> {
+            HashMap<String,String> hashSupplocaly=new HashMap<>();
+            hashSupplocaly.put("Suppcode", appendtxt1.getText());
+            hashSupplocaly.put("Suppname", appendtxt2.getText());
+            hashSupplocaly.put("Curr", appendtxt3.getSelectionModel().getSelectedItem());
+            hashSupplocaly.put("Rate", appendtxt4.getText());
+            hashSupplocaly.put("Address", appendtxt5.getText());
+            hashSupplocaly.put("Mobile", appendtxt6.getText());
+            if(!"".equals(filepicture)){
+                hashSupplocaly.put("Supppic", file.toURI().toString());
+            }else{
+                hashSupplocaly.put("Supppic", "");
+            }
+            if(generalFunc.checkItemCodeExistance(appendtxt1.getText())==true){
+                generalFunc.UpdateSpeciefItem(hashSupplocaly);
+            }else{
+                generalFunc.AddSupp(hashSupplocaly);
+                data.add(new supp_desc(
+                    hashSupplocaly.get("SupplierCode"),
+                    hashSupplocaly.get("SuppName"),
+                    hashSupplocaly.get("CompanyReference"),
+                    hashSupplocaly.get("Currency"),
+                    hashSupplocaly.get("Rate"),
+                    hashSupplocaly.get("Address")));
+            }
+            clearFields();
+        });
+        btnMenu2.setOnAction((ActionEvent event) -> {
+            clearFields();
+        });
+        //====================================================add items to mysql
+        //===================================================================================
+        TableColumn supp_code_col = new TableColumn("Supplier Code");
+        supp_code_col.setMinWidth(100);
+        supp_code_col.setCellValueFactory(
+                new PropertyValueFactory<>("SuppCode"));
+        
+        TableColumn supp_name_col = new TableColumn("Supplier Name");
+        supp_name_col.setMinWidth(100);
+        supp_name_col.setCellValueFactory(
+                new PropertyValueFactory<>("SuppName"));
+        
+        TableColumn curr_col = new TableColumn("Currency");
+        curr_col.setMinWidth(200);
+        curr_col.setCellValueFactory(
+                new PropertyValueFactory<>("Curr"));
+        
+        TableColumn rate_col = new TableColumn("Rate");
+        rate_col.setMinWidth(200);
+        rate_col.setCellValueFactory(
+                new PropertyValueFactory<>("Rate"));
+        
+        TableColumn address_col = new TableColumn("Address");
+        address_col.setMinWidth(200);
+        address_col.setCellValueFactory(
+                new PropertyValueFactory<>("Address"));
+        
+        TableColumn mobile_col = new TableColumn("Mobile");
+        mobile_col.setMinWidth(200);
+        mobile_col.setCellValueFactory(
+                new PropertyValueFactory<>("Mobile"));
+        
+        table.setItems(data);
+        table.getColumns().addAll(supp_code_col, supp_name_col, curr_col,rate_col,address_col,mobile_col);
+        hbox1.getChildren().addAll(appendgrid,imageview1);
+        v1.getChildren().addAll(buttonsMenu,hbox1,searchtxt,table);
+        v1.setSpacing(10);
+        imageview1.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() == 2){
+                    file = fileChooser.showOpenDialog(primaryStage);
+                    Image image1 = new Image(file.toURI().toString());
+                    imageview1.setImage(image);
+                    filepicture=file.toURI().toString();
+                    
+                }
+            }
+        });
+       
+        appendtxt1.setDisable(true);
+        table.setOnMouseClicked((MouseEvent event) -> {
+            if(event.getButton().equals(MouseButton.PRIMARY)){
+                if(event.getClickCount() == 2){
+                    supp_desc itemcodevar=table.getSelectionModel().getSelectedItem();
+                    specSupphash=generalFunc.getSpecifiedSupp(itemcodevar.getSuppCode());
+                    appendtxt1.setText(specSupphash.get("Suppcode"));
+                    appendtxt2.setText(specSupphash.get("Suppname"));
+                    //appendtxt3.setText(specSupphash.get("Curr"));
+                    appendtxt4.setText(specSupphash.get("Rate"));
+                    appendtxt5.setText(specSupphash.get("Address"));
+                    appendtxt6.setText(specSupphash.get("Mobile"));
+                    imageview1.setImage(new Image(specSupphash.get("Supp_pic")));
+                }
+            }
+            
+        });
+        String ratevarr=generalFunc.getRateBuCurr(
+                appendtxt3.getSelectionModel().getSelectedItem(),"LBP");
+        appendtxt4.setText(ratevarr);
+        appendtxt3.valueProperty().addListener(new ChangeListener<String>() {
+        @Override 
+        public void changed(ObservableValue ov, String t, String t1) {
+          String ratevarr=generalFunc.getRateBuCurr(
+                appendtxt3.getSelectionModel().getSelectedItem(),"LBP");
+           appendtxt4.setText(ratevarr);
+        }    
+    });
+        //============================================
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
         
         
     }

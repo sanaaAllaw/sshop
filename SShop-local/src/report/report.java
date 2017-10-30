@@ -87,7 +87,11 @@ public class report extends JFrame {
                 /**You can also test this line if you want to display 
                  * report from any absolute path other than the project root path*/
                 //jasperPrint = JasperFillManager.fillReport("F:/testreport/"+reportName+".jasper",hm, con);
+<<<<<<< HEAD
                 jasperPrint = JasperFillManager.fillReport("productlist.jasper", hm, con);
+=======
+                jasperPrint = JasperFillManager.fillReport("C:\\Users\\mohamed.eldakdouki\\Documents\\GitHub\\sshop\\SShop-local\\src\\sshop\\productlist.jasper", hm, con);
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
             } catch (JRException e) {
                 e.printStackTrace();
             }
