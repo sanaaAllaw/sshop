@@ -76,14 +76,16 @@ function getAllItemsname($a,$b,$c){
     include('php/connection.php'); 
     $arraygroup=array();
     try{    
-   $sqlcateg="select item_name,item_orig_price from items where   itemscol='$b'
-   and itemscateg='$a' and item_group='$c' group by item_group,itemscateg";
+   $sqlcateg="select item_name,item_orig_price,item_group,item_pic from items where   itemscol='$b'
+   and itemscateg='$a' and item_group='$c' ";
    $sth = $conn->prepare($sqlcateg);
     $sth->execute();
     $data = $sth->fetchAll();
     for($i=0;$i<sizeof($data);$i++){
-        $arraygroup[0][$i]=$data[0][$i];
-		$arraygroup[1][$i]=$data[1][$i];
+        $arraygroup[0][$i]=$data[$i][0];
+		$arraygroup[1][$i]=$data[$i][1];
+		$arraygroup[2][$i]=$data[$i][2];
+		$arraygroup[3][$i]=$data[$i][3];
 		
     }
      return $arraygroup;

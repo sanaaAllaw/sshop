@@ -136,7 +136,7 @@ catch(PDOException $e){
                         </ul>
                     </li>
                     <li><a href="add_item.php">Add Items</a></li>
-                    <li><a href="contact.html">CONTACT</a></li>
+                   
                 </ul>
             </div>
             <!--/.navbar-collapse-->

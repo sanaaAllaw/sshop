@@ -123,23 +123,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						$b=$_GET['b'];
 						$c=$_GET['c'];
 						$arrayMen=getAllItemsname($a,$b,$c);
-                        for($i=0;$i<sizeof($arrayMen);$i++){
+                        for($i=0;$i<sizeof($arrayMen[0]);$i++){
 						?>
 					  <li>
-							<a class="cbp-vm-image" href="single.html">
+							<a class="cbp-vm-image" href="single.php?pic=<?php echo $arrayMen[3][$i];?>">
 								<div class="simpleCart_shelfItem">
 							 <div class="view view-first">
 					   		  <div class="inner_content clearfix">
 								<div class="product_image">
-									<img src="images/p1.jpg" class="img-responsive" alt=""/>
+									<img src="<?php echo $arrayMen[3][$i];?>" class="img-responsive" alt=""/>
 									<div class="mask">
 			                       		<div class="info">Quick View</div>
 					                  </div>
 									<div class="product_container">
 									   <div class="cart-left">
-										 <p class="title">perspiciatis</p>
+										 <p class="title"><?php echo $arrayMen[2][$i];?></p>
 									   </div>
-									   <div class="pricey"><span class="item_price">$259.00</span></div>
+									   <div class="pricey"><span class="item_price">$<?php echo $arrayMen[1][$i];?></span></div>
 									   <div class="clearfix"></div>
 								     </div>		
 								  </div>
@@ -147,7 +147,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		                      </div>
 		                    </a>
 							<div class="cbp-vm-details">
-								Silver beet shallot wakame tomatillo salsify mung bean beetroot groundnut.
+								<?php echo $arrayMen[0][$i];?>
 							</div>
 							<a class="cbp-vm-icon cbp-vm-add item_add" href="#">Add to cart</a>
 							</div>
