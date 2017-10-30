@@ -54,11 +54,11 @@ catch(PDOException $e){
 }
 //====================================================
 //====================================================
-function getAllItemsCateg($group){
+function getAllItemsCateg($categ,$group){
     include('php/connection.php'); 
     $arraygroup=array();
     try{    
-   $sqlcateg="select item_name from items where itemscol='$group' group by item_name,itemscol";
+   $sqlcateg="select itemscateg from items where item_group='$categ' and itemscol='$group' group by item_group,itemscateg";
    $sth = $conn->prepare($sqlcateg);
     $sth->execute();
     $data = $sth->fetchAll();
@@ -72,6 +72,27 @@ catch(PDOException $e){
 }
 }
 //====================================================
+function getAllItemsname($a,$b,$c){
+    include('php/connection.php'); 
+    $arraygroup=array();
+    try{    
+   $sqlcateg="select item_name,item_orig_price from items where   itemscol='$b'
+   and itemscateg='$a' and item_group='$c' group by item_group,itemscateg";
+   $sth = $conn->prepare($sqlcateg);
+    $sth->execute();
+    $data = $sth->fetchAll();
+    for($i=0;$i<sizeof($data);$i++){
+        $arraygroup[0][$i]=$data[0][$i];
+		$arraygroup[1][$i]=$data[1][$i];
+		
+    }
+     return $arraygroup;
+}
+catch(PDOException $e){
+    
+}
+}
+//=================================================
 function getItemCode(){   
 include('php/connection.php'); 
     try{

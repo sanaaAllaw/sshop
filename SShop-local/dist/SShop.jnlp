@@ -8,7 +8,15 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+<<<<<<< HEAD
     <jar href="SShop.jar" size="2828519" download="eager" />
+=======
+<<<<<<< HEAD
+    <jar href="SShop.jar" size="2828519" download="eager" />
+=======
+    <jar href="SShop.jar" size="2808388" download="eager" />
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
     <jar href="lib\com.mysql.jdbc_5.1.5.jar" size="676712" download="eager" />
     <jar href="lib\dynamicreports-core-3.1.0.jar" size="1192339" download="eager" />
     <jar href="lib\eclipselink.jar" size="8478776" download="eager" />

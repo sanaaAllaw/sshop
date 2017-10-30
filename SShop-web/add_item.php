@@ -25,12 +25,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <link rel="stylesheet" href="css/style-comp.css">
 
   <head>
-  <?php
- 
-      include("menu.php");
-     
   
-  ?>
     <meta charset="UTF-8">
     <title>Login Form</title>
     
@@ -41,7 +36,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   </head>
 
   <body>
-
+<?php
+	  include("menu.php");
+	?>
     <div class="menu" align="center">
   <div class="main">
         <div class="header" >
@@ -50,9 +47,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <p></p>
             <form method="post" action="items_action.php" enctype="multipart/form-data">
                 <ul class="left-form">
-                    <h2>New item for company: <?php echo $_SESSION['comp'];?></h2>
+                    <h2>New item</h2>
                     <li>
-                        <input type="text"   placeholder="code" required name="code" value="<?php echo getItemCode();?>" readonly=""/>
+                        <input type="text"   placeholder="code" required name="code" value="<?php echo getItemCode();?>" readonly/>
                         <a href="#" class="icon ticker"> </a>
                         <div class="clear"> </div>
                     </li> 

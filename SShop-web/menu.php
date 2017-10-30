@@ -66,9 +66,9 @@ catch(PDOException $e){
 
                                             <h6><?php echo $arrayMen[$i][0];?></h6>
                                             <?php 
-                                            $arrayMengroup=getAllItemsCateg($arrayMen[$i][0]);
+                                            $arrayMengroup=getAllItemsCateg("Men",$arrayMen[$i][0]);
                                             for($j=0;$j<sizeof($arrayMengroup);$j++){?>
-                                                <li><a href="products.php?a=<?php echo $arrayMengroup[$j][0];?>&b=<?php echo $arrayMen[$i][0];?>">
+                                                <li><a href="products.php?a=<?php echo $arrayMengroup[$j][0];?>&b=<?php echo $arrayMen[$i][0];?>&c=Men">
                                                 <?php echo $arrayMengroup[$j][0];?></a></li>
                                                 <?php  }
                                             ?>
@@ -95,9 +95,9 @@ catch(PDOException $e){
 
                                             <h6><?php echo $arrayMen[$i][0];?></h6>
                                             <?php 
-                                            $arrayMengroup=getAllItemsCateg($arrayMen[$i][0]);
+                                            $arrayMengroup=getAllItemsCateg("Women",$arrayMen[$i][0]);
                                             for($j=0;$j<sizeof($arrayMengroup);$j++){?>
-                                                <li><a href="products.html"><?php echo $arrayMengroup[$j][0];?></a></li>
+                                                <li><a href="products.php?a=<?php echo $arrayMengroup[$j][0];?>&b=<?php echo $arrayMen[$i][0];?>&c=Women"><?php echo $arrayMengroup[$j][0];?></a></li>
                                                 <?php  }
                                             ?>
 
@@ -121,9 +121,9 @@ catch(PDOException $e){
 
                                             <h6><?php echo $arrayMen[$i][0];?></h6>
                                             <?php 
-                                            $arrayMengroup=getAllItemsCateg($arrayMen[$i][0]);
+                                            $arrayMengroup=getAllItemsCateg("Kids",$arrayMen[$i][0]);
                                             for($j=0;$j<sizeof($arrayMengroup);$j++){?>
-                                                <li><a href="products.html"><?php echo $arrayMengroup[$j][0];?></a></li>
+                                                <li><a href="products.php?a=<?php echo $arrayMengroup[$j][0];?>&b=<?php echo $arrayMen[$i][0];?>&c=Kids"><?php echo $arrayMengroup[$j][0];?></a></li>
                                                 <?php  }
                                             ?>
 
