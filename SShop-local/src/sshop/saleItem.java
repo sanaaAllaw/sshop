@@ -200,7 +200,15 @@ public class saleItem extends Application {
         hbox2.getChildren().add(grid1);
         //Adding the Button to the cell
         
+<<<<<<< HEAD
         table.setPrefWidth(Constantes.primScreenBounds.getWidth()-200-10);
+=======
+<<<<<<< HEAD
+        table.setPrefWidth(Constantes.primScreenBounds.getWidth()-200-10);
+=======
+        table.setPrefWidth(primaryScreenBounds.getWidth());
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
         table.setPrefHeight(primaryScreenBounds.getHeight()/1.5);
         table.setRowFactory((TableView<items> tableView) -> {//right click remove row
             final TableRow<items> row = new TableRow<>();
@@ -245,7 +253,15 @@ public class saleItem extends Application {
         Itemnamecol.setCellValueFactory(
                 new PropertyValueFactory<>("ItemName"));
         TableColumn descripCol=new TableColumn("Description");
+<<<<<<< HEAD
         descripCol.setPrefWidth(500);
+=======
+<<<<<<< HEAD
+        descripCol.setPrefWidth(500);
+=======
+        descripCol.setPrefWidth(700);
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
         descripCol.setCellValueFactory(
                 new PropertyValueFactory<>("Description"));
         TableColumn PriceCol=new TableColumn("Price");
@@ -259,7 +275,15 @@ public class saleItem extends Application {
         QtyCol.setCellValueFactory(
                 new PropertyValueFactory<>("Qty"));
         TableColumn QtyResCol=new TableColumn("Qty Reste");
+<<<<<<< HEAD
         QtyResCol.setPrefWidth(100);
+=======
+<<<<<<< HEAD
+        QtyResCol.setPrefWidth(100);
+=======
+        QtyResCol.setPrefWidth(170);
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
         QtyResCol.setCellValueFactory(
                 new PropertyValueFactory<>("Reste"));
         
@@ -285,18 +309,41 @@ public class saleItem extends Application {
         vbox1.getChildren().add(hbox1);
         vbox1.getChildren().add(hbox2);
         root.setTop(vbox1);
+<<<<<<< HEAD
         Scene scene = new Scene(root, Constantes.primScreenBounds.getWidth()-200-10,
                 7000);
+=======
+<<<<<<< HEAD
+        Scene scene = new Scene(root, Constantes.primScreenBounds.getWidth()-200-10,
+                7000);
+=======
+        Scene scene = new Scene(root, 800, 550);
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
         
         String css =this.getClass().getResource("/css/items.css").toExternalForm();
         scene.getStylesheets().add(css);
         
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
        // primaryStage.setX(primaryScreenBounds.getMinX());
         //primaryStage.setY(primaryScreenBounds.getMinY());
         //primaryStage.setWidth(primaryScreenBounds.getWidth());
         //primaryStage.setHeight(primaryScreenBounds.getHeight());
         primaryStage.setX(200+10);
         primaryStage.setY(0);
+<<<<<<< HEAD
+=======
+=======
+        primaryStage.setX(primaryScreenBounds.getMinX());
+        primaryStage.setY(primaryScreenBounds.getMinY());
+        primaryStage.setWidth(primaryScreenBounds.getWidth());
+        primaryStage.setHeight(primaryScreenBounds.getHeight());
+        primaryStage.setMaximized(true);
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
         //Image ico = new Image("images/Add-item-icon.png");
        // primaryStage.getIcons().add(ico);
         primaryStage.setTitle("sale items");
@@ -366,7 +413,15 @@ public class saleItem extends Application {
         Connection dbConnection = null;
         PreparedStatement preparedStatement = null;
         
+<<<<<<< HEAD
         String selectSQL = "SELECT * FROM items WHERE item_barcode = ? or item_name = ?";
+=======
+<<<<<<< HEAD
+        String selectSQL = "SELECT * FROM items WHERE item_barcode = ? or item_name = ?";
+=======
+        String selectSQL = "SELECT * FROM items WHERE itembar = ? or itemname = ?";
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
         
         try {
             dbConnection = JDBCMysql.connectmysql();
@@ -378,6 +433,7 @@ public class saleItem extends Application {
             String result = null;
             int fond;
             if (rs.next()) {
+<<<<<<< HEAD
                 int itemqty1=rs.getInt("item_qty");
                 fond=3;
                 itemqty=itemqty1-1;
@@ -386,6 +442,27 @@ public class saleItem extends Application {
                     String itemname = rs.getString("item_name");
                     String desc = rs.getString("item_name");
                     double price = rs.getDouble("item_orig_price");
+=======
+<<<<<<< HEAD
+                int itemqty1=rs.getInt("item_qty");
+                fond=3;
+                itemqty=itemqty1-1;
+                if(itemqty1<fond && itemqty1>0){
+                    result=itemqty+" low than "+fond+" items";
+                    String itemname = rs.getString("item_name");
+                    String desc = rs.getString("item_name");
+                    double price = rs.getDouble("item_orig_price");
+=======
+                int itemqty1=rs.getInt("qty");
+                fond=rs.getInt("fond");
+                itemqty=itemqty1-1;
+                if(itemqty1<fond && itemqty1>0){
+                    result=itemqty+" low than "+fond+" items";
+                    String itemname = rs.getString("name");
+                    String desc = rs.getString("description");
+                    double price = rs.getDouble("price");
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
                     data.add(new items(itemname, price, 1, desc,result));
                     insertIntoTransaction(itemname,1,price,getDate(),"");
                      TotalPrice1=TotalPrice1+price;
@@ -404,9 +481,21 @@ public class saleItem extends Application {
                     alert.showAndWait();
                 }
                 else{
+<<<<<<< HEAD
                     String itemname = rs.getString("item_name");
                     String desc = rs.getString("item_name");
                     double price = rs.getDouble("item_orig_price");
+=======
+<<<<<<< HEAD
+                    String itemname = rs.getString("item_name");
+                    String desc = rs.getString("item_name");
+                    double price = rs.getDouble("item_orig_price");
+=======
+                    String itemname = rs.getString("name");
+                    String desc = rs.getString("description");
+                    double price = rs.getDouble("price");
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
                     result=itemqty+" qty available";
                     
                     data.add(new items(itemname, price, 1, desc,result));
@@ -574,7 +663,15 @@ Date date = new Date();
         Connection dbConnection = null;
         PreparedStatement preparedStatement = null;
         
+<<<<<<< HEAD
         String selectSQL = "update  items set item_qty = ? where item_barcode = ? or item_name = ?";
+=======
+<<<<<<< HEAD
+        String selectSQL = "update  items set item_qty = ? where item_barcode = ? or item_name = ?";
+=======
+        String selectSQL = "update  items set itemqty = ? where itembar = ? or itemname = ?";
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
         
         try {
             dbConnection = JDBCMysql.connectmysql();
@@ -611,7 +708,15 @@ Date date = new Date();
         PreparedStatement preparedStatement = null;
          PreparedStatement preparedStatement1 = null;
         String selectSQL = "delete from transaction where item_name = ?";
+<<<<<<< HEAD
          String selectSQL1 = "update  items set item_qty = item_qty+? where item_barcode = ? or item_name = ?";
+=======
+<<<<<<< HEAD
+         String selectSQL1 = "update  items set item_qty = item_qty+? where item_barcode = ? or item_name = ?";
+=======
+         String selectSQL1 = "update  items set itemqty = ? where itembar = ? or itemname = ?";
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
         try {
             dbConnection = JDBCMysql.connectmysql();
             preparedStatement = dbConnection.prepareStatement(selectSQL);
@@ -684,7 +789,15 @@ Date date = new Date();
         Connection dbConnection = null;
         PreparedStatement preparedStatement = null;
         
+<<<<<<< HEAD
         String selectSQL = "SELECT * FROM items WHERE item_barcode = ? or item_name = ?";
+=======
+<<<<<<< HEAD
+        String selectSQL = "SELECT * FROM items WHERE item_barcode = ? or item_name = ?";
+=======
+        String selectSQL = "SELECT * FROM items WHERE itembar = ? or itemname = ?";
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
         
         try {
             dbConnection =JDBCMysql.connectmysql();
@@ -696,7 +809,15 @@ Date date = new Date();
             String result = null;
             int fond;
             if (rs.next()) {
+<<<<<<< HEAD
                  itemqty1=rs.getInt("item_qty");
+=======
+<<<<<<< HEAD
+                 itemqty1=rs.getInt("item_qty");
+=======
+                 itemqty1=rs.getInt("qty");
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
                 
           
             }

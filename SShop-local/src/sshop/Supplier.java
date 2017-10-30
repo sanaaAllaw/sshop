@@ -319,6 +319,7 @@ public class Supplier extends Application {
                                 ).setFirstName(t.getNewValue());
                     }
                 }
+<<<<<<< HEAD
         );
         
         TableColumn st1 = new TableColumn("Last Name");
@@ -396,6 +397,85 @@ public class Supplier extends Application {
                     }
                 }
         );
+=======
+        );
+        
+        TableColumn st1 = new TableColumn("Last Name");
+        st1.setMinWidth(widthVar);
+        st1.setCellValueFactory(
+                new PropertyValueFactory<>("lastName"));
+        st1.setCellFactory(cellFactory);
+        st1.setOnEditCommit(
+                new EventHandler<CellEditEvent<Person, String>>() {
+                    @Override
+                    public void handle(CellEditEvent<Person, String> t) {
+                        ((Person) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                                ).setLastName(t.getNewValue());
+                    }
+                }
+        );
+        TableColumn st2 = new TableColumn("Company");
+        st2.setMinWidth(widthVar);
+        st2.setCellValueFactory(
+                new PropertyValueFactory<>("company"));
+        st2.setCellFactory(cellFactory);
+        st2.setOnEditCommit(
+                new EventHandler<CellEditEvent<Person, String>>() {
+                    @Override
+                    public void handle(CellEditEvent<Person, String> t) {
+                        ((Person) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                                ).setCompany(t.getNewValue());
+                    }
+                }
+        );
+        TableColumn st3 = new TableColumn("Street address 1");
+        st3.setMinWidth(widthVar);
+        st3.setCellValueFactory(
+                new PropertyValueFactory<Person, String>("stadd1"));
+        st3.setCellFactory(cellFactory);
+        st3.setOnEditCommit(
+                new EventHandler<CellEditEvent<Person, String>>() {
+                    @Override
+                    public void handle(CellEditEvent<Person, String> t) {
+                        ((Person) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                                ).setStadd1(t.getNewValue());
+                    }
+                }
+        );
+        TableColumn st4 = new TableColumn("City");
+        st4.setMinWidth(widthVar);
+        st4.setCellValueFactory(
+                new PropertyValueFactory<Person, String>("city"));
+        st4.setCellFactory(cellFactory);
+        st4.setOnEditCommit(
+                new EventHandler<CellEditEvent<Person, String>>() {
+                    @Override
+                    public void handle(CellEditEvent<Person, String> t) {
+                        ((Person) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                                ).setCity(t.getNewValue());
+                    }
+                }
+        );
+        TableColumn st5 = new TableColumn("Zip/Postal Code");
+        st5.setMinWidth(widthVar);
+        st5.setCellValueFactory(
+                new PropertyValueFactory<Person, String>("zip"));
+        st5.setCellFactory(cellFactory);
+        st5.setOnEditCommit(
+                new EventHandler<CellEditEvent<Person, String>>() {
+                    @Override
+                    public void handle(CellEditEvent<Person, String> t) {
+                        ((Person) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                                ).setZip(t.getNewValue());
+                    }
+                }
+        );
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
         TableColumn st6 = new TableColumn("Fax");
         st6.setMinWidth(widthVar);
         st6.setCellValueFactory(
@@ -513,6 +593,7 @@ public class Supplier extends Application {
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         
+<<<<<<< HEAD
         
         vbox.setPadding(new Insets(10, 0, 0, 10));
         vbox.getChildren().addAll(label, sear_txt,table, hb);
@@ -520,6 +601,16 @@ public class Supplier extends Application {
         root1.setLeft(vbox);
         root1.setTop(des);
         
+=======
+<<<<<<< HEAD
+        
+        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.getChildren().addAll(label, sear_txt,table, hb);
+        BorderPane root1 = new BorderPane();
+        root1.setLeft(vbox);
+        root1.setTop(des);
+        
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
         scene=new Scene(root1,Constantes.primScreenBounds.getWidth()-200-10,
                 7000);
         String css =this.getClass().getResource("/css/supplier.css").toExternalForm();
@@ -530,6 +621,160 @@ public class Supplier extends Application {
         stage.setScene(scene);
       
         stage.show();
+<<<<<<< HEAD
+        
+        
+    }
+
+    private void clearFields() {
+  t2.setText("");
+  t3.setText("");
+  t4.setText("");
+  t5.setText("");
+  t6.setText("");
+  t7.setText("");
+  t8.setText("");
+  t9.setText("");
+  t10.setText("");
+  t11.setText("");
+  
+}
+    private boolean checkrequiredField(){
+        if("".equals(t2.getText())){
+            t2.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            t2.requestFocus();
+            return true;
+        }
+        else if("".equals(t3.getText())){
+            t3.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            t3.requestFocus();
+            return true;
+        }
+        else if("".equals(t4.getText())){
+            t4.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            t4.requestFocus();
+            return true;
+        }
+        else if("".equals(t5.getText())){
+            t5.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            t5.requestFocus();
+            return true;
+        }
+        else if("".equals(t6.getText())){
+            t6.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            t6.requestFocus();
+            return true;
+        }
+        else if("".equals(t7.getText())){
+            t7.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            t7.requestFocus();
+            return true;
+        }
+        else if("".equals(t8.getText())){
+            t8.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            t8.requestFocus();
+            return true;
+        }
+        else if("".equals(t9.getText())){
+            t9.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            t9.requestFocus();
+            return true;
+        }
+        else if("".equals(t10.getText())){
+            t10.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            t10.requestFocus();
+            return true;
+        }
+        else if("".equals(t11.getText())){
+            t11.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            t11.requestFocus();
+            return true;
+        }
+        else{
+            return false;
+=======
+=======
+        currMap=generalFunc.getAllCurr();
+        for (int i=0;i<currMap.size();i++){
+            appendtxt3.getItems().add(currMap.get(i));
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
+        }
+        
+<<<<<<< HEAD
+    }
+    
+     private void resetrequiredField(){
+       
+            t2.setStyle("-fx-border-color: white ; -fx-border-width: 2px ;");
+         
+            t3.setStyle("-fx-border-color: white ; -fx-border-width: 2px ;");
+          
+            t4.setStyle("-fx-border-color: white ; -fx-border-width: 2px ;");
+          
+            t5.setStyle("-fx-border-color: white ; -fx-border-width: 2px ;");
+           
+            t6.setStyle("-fx-border-color: white ; -fx-border-width: 2px ;");
+           
+            t7.setStyle("-fx-border-color: white ; -fx-border-width: 2px ;");
+           
+            t8.setStyle("-fx-border-color: white ; -fx-border-width: 2px ;");
+           
+            t9.setStyle("-fx-border-color: white ; -fx-border-width: 2px ;");
+            
+            t10.setStyle("-fx-border-color: white ; -fx-border-width: 2px ;");
+           
+            t11.setStyle("-fx-border-color: white ; -fx-border-width: 2px ;");
+           
+        
+    }
+=======
+        table.setItems(data);
+        table.getColumns().addAll(supp_code_col, supp_name_col, curr_col,rate_col,address_col,mobile_col);
+        hbox1.getChildren().addAll(appendgrid,imageview1);
+        v1.getChildren().addAll(buttonsMenu,hbox1,searchtxt,table);
+        v1.setSpacing(10);
+        imageview1.setOnMouseClicked((MouseEvent mouseEvent) -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() == 2){
+                    file = fileChooser.showOpenDialog(primaryStage);
+                    Image image1 = new Image(file.toURI().toString());
+                    imageview1.setImage(image);
+                    filepicture=file.toURI().toString();
+                    
+                }
+            }
+        });
+       
+        appendtxt1.setDisable(true);
+        table.setOnMouseClicked((MouseEvent event) -> {
+            if(event.getButton().equals(MouseButton.PRIMARY)){
+                if(event.getClickCount() == 2){
+                    supp_desc itemcodevar=table.getSelectionModel().getSelectedItem();
+                    specSupphash=generalFunc.getSpecifiedSupp(itemcodevar.getSuppCode());
+                    appendtxt1.setText(specSupphash.get("Suppcode"));
+                    appendtxt2.setText(specSupphash.get("Suppname"));
+                    //appendtxt3.setText(specSupphash.get("Curr"));
+                    appendtxt4.setText(specSupphash.get("Rate"));
+                    appendtxt5.setText(specSupphash.get("Address"));
+                    appendtxt6.setText(specSupphash.get("Mobile"));
+                    imageview1.setImage(new Image(specSupphash.get("Supp_pic")));
+                }
+            }
+            
+        });
+        String ratevarr=generalFunc.getRateBuCurr(
+                appendtxt3.getSelectionModel().getSelectedItem(),"LBP");
+        appendtxt4.setText(ratevarr);
+        appendtxt3.valueProperty().addListener(new ChangeListener<String>() {
+        @Override 
+        public void changed(ObservableValue ov, String t, String t1) {
+          String ratevarr=generalFunc.getRateBuCurr(
+                appendtxt3.getSelectionModel().getSelectedItem(),"LBP");
+           appendtxt4.setText(ratevarr);
+        }    
+    });
+        //============================================
+>>>>>>> 2093cde461787848065e3924da36b8b78348448e
         
         
     }
@@ -628,6 +873,7 @@ public class Supplier extends Application {
            
         
     }
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
 
     public static class Person {
         private final SimpleStringProperty ID;
@@ -699,6 +945,7 @@ public class Supplier extends Application {
         
         public void setStadd1(String varstadd1) {
             stadd1.set(varstadd1);
+<<<<<<< HEAD
         }
         public String getCity() {
             return city.get();
@@ -726,6 +973,35 @@ public class Supplier extends Application {
         public String getPhone() {
             return phone.get();
         }
+=======
+        }
+        public String getCity() {
+            return city.get();
+        }
+        
+        public void setCity(String varcity) {
+            city.set(varcity);
+        }
+        
+        public String getZip() {
+            return zip.get();
+        }
+        
+        public void setZip(String varzip) {
+            zip.set(varzip);
+        }
+        public String getFax() {
+            return fax.get();
+        }
+        
+        public void setFax(String varfax) {
+            fax.set(varfax);
+        }
+        
+        public String getPhone() {
+            return phone.get();
+        }
+>>>>>>> bc1250416ac238df6260b3d2309816603003a3d9
         
         public void setPhone(String varphone) {
             phone.set(varphone);
