@@ -353,6 +353,54 @@ public class generalFunc {
         }
         return SpeciefCurr;
     }
+      public static HashMap<Integer,String> getAllItemGroup(){
+        HashMap<Integer,String> specItemGroup=new HashMap<>();
+        PreparedStatement preparedStatement = null;
+        Integer currcounter=0;
+        boolean boolcheckvar=false;
+        String selectSQL = "SELECT distinct(GroupType) FROM item_group";
+        try{
+            
+            preparedStatement = SShop.connmysql.prepareStatement(selectSQL);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                specItemGroup.put(currcounter, rs.getString("GroupType"));
+                currcounter++;
+            
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+        return specItemGroup;
+    }
+       public static HashMap<Integer,String> getAllSuppCode(){
+        HashMap<Integer,String> specItemGroup=new HashMap<>();
+        PreparedStatement preparedStatement = null;
+        Integer currcounter=0;
+        boolean boolcheckvar=false;
+        String selectSQL = "SELECT distinct(fname) FROM supplier";
+        try{
+            
+            preparedStatement = SShop.connmysql.prepareStatement(selectSQL);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                specItemGroup.put(currcounter, rs.getString("fname"));
+                currcounter++;
+            
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+        return specItemGroup;
+       }
      //============================================
     public static HashMap<Integer,HashMap<String,String>> getAllItems(){
         Integer i=0;
@@ -384,6 +432,7 @@ public class generalFunc {
         }
         return ItemsAllHash;
     }
+    
     //=================================
      //============================================
     public static HashMap<Integer,HashMap<String,String>> getAllSupp(){
@@ -448,7 +497,7 @@ public class generalFunc {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 ItemNumbervar=rs.getInt("itemcount");
-                formatted = String.format("%06d", ItemNumbervar);
+                formatted = String.format("%06d", ItemNumbervar+1);
             }
         }
         catch (Exception e)

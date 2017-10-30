@@ -1,8 +1,3 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
 package sshop;
 
 import java.io.File;
@@ -26,6 +21,8 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -42,6 +39,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javafx.application.Application.launch;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.css.PseudoClass;
 import javafx.stage.FileChooser;
 import javafx.stage.StageStyle;
@@ -95,12 +93,15 @@ public class Customer extends Application {
         Button clear=new Button("Clear Fields");
         save.setPrefWidth(200);
         clear.setPrefWidth(200);
-        //Image img1 = new Image("images/contact.png");
-       // ImageView imgview1=new ImageView(img1);
-      //  imgview1.setFitHeight(300);
-        //imgview1.setFitWidth(300);
+         save.setId("rich-blue");
+        clear.setId("rich-blue");
+        Image img1 = new Image("/pictures/oper.png");
+        ImageView imgview1=new ImageView(img1);
+        imgview1.setFitHeight(200);
+        imgview1.setFitWidth(200);
         Button addimage=new Button("add image");
-        addimage.setPrefWidth(300);
+        addimage.setPrefWidth(200);
+        addimage.setId("rich-blue");
         addimage.setOnAction((event) -> {
             FileChooser chooser = new FileChooser();
     chooser.setTitle("Open File");
@@ -108,8 +109,8 @@ public class Customer extends Application {
     if(file != null) {
          imagepath = file.getPath();
         
-        //Image image = new Image("file:///"+imagepath);
-        //imgview1.setImage(image);
+        Image image = new Image("file:///"+imagepath);
+        imgview1.setImage(image);
     }           
         });
         VBox v1=new VBox();
@@ -278,20 +279,16 @@ public class Customer extends Application {
                       "-fx-border-insets: 5;" + 
                       "-fx-border-radius: 5;" + 
                       "-fx-border-color: gray;");
-       // imgBtn.getChildren().addAll(imgview1,addimage);
+        imgBtn.getChildren().addAll(imgview1,addimage);
         des.getChildren().addAll(v1,dess,imgBtn);
         
-        Scene scene = new Scene(new Group(), Constantes.primScreenBounds.getWidth()-200-10,
-                700);
+        Scene scene = new Scene(new Group());
         stage.setTitle("customer");
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         double widthVar=(primaryScreenBounds.getWidth())/12;
-        table.setPrefWidth(primaryScreenBounds.getWidth());
+        table.setPrefWidth(Constantes.primScreenBounds.getWidth()-200-10);
         //set Stage boundaries to visible bounds of the main screen
-        stage.setX(primaryScreenBounds.getMinX());
-        stage.setY(primaryScreenBounds.getMinY());
-        stage.setWidth(primaryScreenBounds.getWidth());
-        stage.setHeight(primaryScreenBounds.getHeight());
+       
         
         final Label label = new Label("Address Book");
         label.setFont(new Font("Arial", 20));
@@ -527,14 +524,19 @@ public class Customer extends Application {
         root1.setLeft(vbox);
         root1.setTop(des);
         
-         scene = new Scene(root1, Constantes.primScreenBounds.getWidth()-200-10,
-                700);
-        String css =this.getClass().getResource("/css/customer.css").toExternalForm();
+       
+      
+      
+        
+        scene=new Scene(root1,Constantes.primScreenBounds.getWidth()-200-10,
+                7000);
+        String css =this.getClass().getResource("/css/supplier.css").toExternalForm();
         scene.getStylesheets().add(css);
-        //Image ico = new Image("images/customer-service.png");
-        //stage.getIcons().add(ico);
+        
+         stage.setX(200+10);
+        stage.setY(0);
         stage.setScene(scene);
-       // stage.setMaximized(true);
+        //stage.setMaximized(true);
         stage.show();
         
         
