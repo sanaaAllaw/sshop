@@ -65,7 +65,8 @@ public class report extends JFrame {
         //jasperViewer.setVisible(false);
     }
  
-    /** this method will call the report from data source*/
+    /** this method will call the report from data sourc
+     * @return e*/
     public JasperPrint generateReport() {
         try {
             if (con == null) {
@@ -81,12 +82,12 @@ public class report extends JFrame {
                 hm = new HashMap();
             }
             
-            hm.put("id","");
+            hm.put("id",1);
             try {
                 /**You can also test this line if you want to display 
                  * report from any absolute path other than the project root path*/
                 //jasperPrint = JasperFillManager.fillReport("F:/testreport/"+reportName+".jasper",hm, con);
-                jasperPrint = JasperFillManager.fillReport("C:\\Users\\skynete10\\Documents\\NetBeansProjects\\Stock\\src\\stock\\productlist.jasper", hm, con);
+                jasperPrint = JasperFillManager.fillReport("productlist.jasper", hm, con);
             } catch (JRException e) {
                 e.printStackTrace();
             }

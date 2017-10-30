@@ -29,6 +29,9 @@ public class Constantes {
     static Stage StageSuppgrid=new Stage(StageStyle.DECORATED);
     static Stage StageItemgrid=new Stage(StageStyle.DECORATED);
     static Stage StageProducts=new Stage(StageStyle.DECORATED);
+    static Stage Stagesett=new Stage(StageStyle.DECORATED);
+    static Stage StageReport=new Stage(StageStyle.DECORATED);
+    static Stage Stageslm=new Stage(StageStyle.DECORATED);
     static Integer indexvar;
     static String currentItemSelected;
     static HashMap<Integer,String> statichashmapsuppreturn=new HashMap<>();

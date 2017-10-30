@@ -200,7 +200,7 @@ public class saleItem extends Application {
         hbox2.getChildren().add(grid1);
         //Adding the Button to the cell
         
-        table.setPrefWidth(primaryScreenBounds.getWidth());
+        table.setPrefWidth(Constantes.primScreenBounds.getWidth()-200-10);
         table.setPrefHeight(primaryScreenBounds.getHeight()/1.5);
         table.setRowFactory((TableView<items> tableView) -> {//right click remove row
             final TableRow<items> row = new TableRow<>();
@@ -245,7 +245,7 @@ public class saleItem extends Application {
         Itemnamecol.setCellValueFactory(
                 new PropertyValueFactory<>("ItemName"));
         TableColumn descripCol=new TableColumn("Description");
-        descripCol.setPrefWidth(700);
+        descripCol.setPrefWidth(500);
         descripCol.setCellValueFactory(
                 new PropertyValueFactory<>("Description"));
         TableColumn PriceCol=new TableColumn("Price");
@@ -259,7 +259,7 @@ public class saleItem extends Application {
         QtyCol.setCellValueFactory(
                 new PropertyValueFactory<>("Qty"));
         TableColumn QtyResCol=new TableColumn("Qty Reste");
-        QtyResCol.setPrefWidth(170);
+        QtyResCol.setPrefWidth(100);
         QtyResCol.setCellValueFactory(
                 new PropertyValueFactory<>("Reste"));
         
@@ -285,16 +285,18 @@ public class saleItem extends Application {
         vbox1.getChildren().add(hbox1);
         vbox1.getChildren().add(hbox2);
         root.setTop(vbox1);
-        Scene scene = new Scene(root, 800, 550);
+        Scene scene = new Scene(root, Constantes.primScreenBounds.getWidth()-200-10,
+                7000);
         
         String css =this.getClass().getResource("/css/items.css").toExternalForm();
         scene.getStylesheets().add(css);
         
-        primaryStage.setX(primaryScreenBounds.getMinX());
-        primaryStage.setY(primaryScreenBounds.getMinY());
-        primaryStage.setWidth(primaryScreenBounds.getWidth());
-        primaryStage.setHeight(primaryScreenBounds.getHeight());
-        primaryStage.setMaximized(true);
+       // primaryStage.setX(primaryScreenBounds.getMinX());
+        //primaryStage.setY(primaryScreenBounds.getMinY());
+        //primaryStage.setWidth(primaryScreenBounds.getWidth());
+        //primaryStage.setHeight(primaryScreenBounds.getHeight());
+        primaryStage.setX(200+10);
+        primaryStage.setY(0);
         //Image ico = new Image("images/Add-item-icon.png");
        // primaryStage.getIcons().add(ico);
         primaryStage.setTitle("sale items");
@@ -364,7 +366,7 @@ public class saleItem extends Application {
         Connection dbConnection = null;
         PreparedStatement preparedStatement = null;
         
-        String selectSQL = "SELECT * FROM items WHERE itembar = ? or itemname = ?";
+        String selectSQL = "SELECT * FROM items WHERE item_barcode = ? or item_name = ?";
         
         try {
             dbConnection = JDBCMysql.connectmysql();
@@ -376,14 +378,14 @@ public class saleItem extends Application {
             String result = null;
             int fond;
             if (rs.next()) {
-                int itemqty1=rs.getInt("qty");
-                fond=rs.getInt("fond");
+                int itemqty1=rs.getInt("item_qty");
+                fond=3;
                 itemqty=itemqty1-1;
                 if(itemqty1<fond && itemqty1>0){
                     result=itemqty+" low than "+fond+" items";
-                    String itemname = rs.getString("name");
-                    String desc = rs.getString("description");
-                    double price = rs.getDouble("price");
+                    String itemname = rs.getString("item_name");
+                    String desc = rs.getString("item_name");
+                    double price = rs.getDouble("item_orig_price");
                     data.add(new items(itemname, price, 1, desc,result));
                     insertIntoTransaction(itemname,1,price,getDate(),"");
                      TotalPrice1=TotalPrice1+price;
@@ -402,9 +404,9 @@ public class saleItem extends Application {
                     alert.showAndWait();
                 }
                 else{
-                    String itemname = rs.getString("name");
-                    String desc = rs.getString("description");
-                    double price = rs.getDouble("price");
+                    String itemname = rs.getString("item_name");
+                    String desc = rs.getString("item_name");
+                    double price = rs.getDouble("item_orig_price");
                     result=itemqty+" qty available";
                     
                     data.add(new items(itemname, price, 1, desc,result));
@@ -572,7 +574,7 @@ Date date = new Date();
         Connection dbConnection = null;
         PreparedStatement preparedStatement = null;
         
-        String selectSQL = "update  items set itemqty = ? where itembar = ? or itemname = ?";
+        String selectSQL = "update  items set item_qty = ? where item_barcode = ? or item_name = ?";
         
         try {
             dbConnection = JDBCMysql.connectmysql();
@@ -609,7 +611,7 @@ Date date = new Date();
         PreparedStatement preparedStatement = null;
          PreparedStatement preparedStatement1 = null;
         String selectSQL = "delete from transaction where item_name = ?";
-         String selectSQL1 = "update  items set itemqty = ? where itembar = ? or itemname = ?";
+         String selectSQL1 = "update  items set item_qty = item_qty+? where item_barcode = ? or item_name = ?";
         try {
             dbConnection = JDBCMysql.connectmysql();
             preparedStatement = dbConnection.prepareStatement(selectSQL);
@@ -682,7 +684,7 @@ Date date = new Date();
         Connection dbConnection = null;
         PreparedStatement preparedStatement = null;
         
-        String selectSQL = "SELECT * FROM items WHERE itembar = ? or itemname = ?";
+        String selectSQL = "SELECT * FROM items WHERE item_barcode = ? or item_name = ?";
         
         try {
             dbConnection =JDBCMysql.connectmysql();
@@ -694,7 +696,7 @@ Date date = new Date();
             String result = null;
             int fond;
             if (rs.next()) {
-                 itemqty1=rs.getInt("qty");
+                 itemqty1=rs.getInt("item_qty");
                 
           
             }

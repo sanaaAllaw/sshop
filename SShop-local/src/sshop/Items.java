@@ -6,7 +6,15 @@
 package sshop;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.beans.Observable;
@@ -17,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -49,17 +58,18 @@ public class Items extends Application{
     TextField appendtxt1=new TextField();
     TextField appendtxt2=new TextField();
     TextField appendtxt3=new TextField();
-    TextField appendtxt4=new TextField();
+    static ComboBox<String> appendtxt4=new ComboBox<>();
     TextField appendtxt5=new TextField();
-    TextField appendtxt6=new TextField();
+    static HashMap<Integer, String> ItemGroupHash=new HashMap<>();
+    static ComboBox<String> appendtxt6=new ComboBox<>();
     private final TableView<Item_desc> table = new TableView<>();
     public void clearFields(){
         //appendtxt1.clear();
         appendtxt2.clear();
         appendtxt3.clear();
-        appendtxt4.clear();
+        appendtxt4.getSelectionModel().selectFirst();
         appendtxt5.clear();
-        appendtxt6.clear();
+        appendtxt6.getSelectionModel().selectFirst();
     }
     @Override
     public void start(Stage primaryStage) {
@@ -75,6 +85,8 @@ public class Items extends Application{
                     ItemsAllHash.get(i).get("itemprice"),
                     ItemsAllHash.get(i).get("itemgrp")));
         }
+        GetAllItemGroup();
+        GetAllSuppvar();
         VBox v1=new VBox();
         GridPane buttonsMenu=new GridPane();
         HBox hbox1=new HBox();
@@ -193,9 +205,9 @@ public class Items extends Application{
             hashItemslocaly.put("itemcode", appendtxt1.getText());
             hashItemslocaly.put("itemname", appendtxt2.getText());
             hashItemslocaly.put("itembar", appendtxt3.getText());
-            hashItemslocaly.put("itemsupp", appendtxt4.getText());
+            hashItemslocaly.put("itemsupp", appendtxt4.getSelectionModel().getSelectedItem());
             hashItemslocaly.put("itemprice", appendtxt5.getText());
-            hashItemslocaly.put("itemgrp", appendtxt6.getText());
+            hashItemslocaly.put("itemgrp", appendtxt6.getSelectionModel().getSelectedItem());
             hashItemslocaly.put("itemcol", "");
             if(!"".equals(filepicture)){
                 hashItemslocaly.put("itempic", file.toURI().toString());
@@ -207,6 +219,9 @@ public class Items extends Application{
             }else{
                 generalFunc.AddItems(hashItemslocaly);
             }
+            data.add(new Item_desc(appendtxt1.getText(),  appendtxt2.getText(), appendtxt3.getText(),
+                    appendtxt4.getSelectionModel().getSelectedItem(), appendtxt5.getText(), 
+                    appendtxt6.getSelectionModel().getSelectedItem()));
             clearFields();
         });
         btnMenu2.setOnAction((ActionEvent event) -> {
@@ -256,7 +271,11 @@ public class Items extends Application{
                     Image image1 = new Image(file.toURI().toString());
                     imageview1.setImage(image);
                     filepicture=file.toURI().toString();
-                    
+                    try {
+                        openFile(file);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Items.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         });
@@ -270,9 +289,9 @@ public class Items extends Application{
                     appendtxt1.setText(specItemhash.get("itemcode"));
                     appendtxt2.setText(specItemhash.get("itemname"));
                     appendtxt3.setText(specItemhash.get("itembar"));
-                    appendtxt4.setText(specItemhash.get("itemsupp"));
+                    appendtxt4.getSelectionModel().select(specItemhash.get("itemsupp"));
                     appendtxt5.setText(specItemhash.get("itemprice"));
-                    appendtxt6.setText(specItemhash.get("itemgrp"));
+                    appendtxt6.getSelectionModel().select(specItemhash.get("itemgrp"));
                     imageview1.setImage(new Image(specItemhash.get("item_pic")));
                 }
             }
@@ -302,7 +321,29 @@ public class Items extends Application{
     public static void main(String[] args) {
         launch(args);
     }
-    
+     public static void GetAllSuppvar(){
+       ItemGroupHash=generalFunc.getAllSuppCode();
+        for (int i=0;i<ItemGroupHash.size();i++){
+            appendtxt4.getItems().add(ItemGroupHash.get(i));
+        }
+        appendtxt4.getSelectionModel().selectFirst();
+   }
+    public static void GetAllItemGroup(){
+       ItemGroupHash=generalFunc.getAllItemGroup();
+        for (int i=0;i<ItemGroupHash.size();i++){
+            appendtxt6.getItems().add(ItemGroupHash.get(i));
+        }
+        appendtxt6.getSelectionModel().selectFirst();
+   }
+    private void openFile(File file) throws IOException {
+      Path from = Paths.get(file.toURI());
+        Path to = Paths.get("C:\\Users\\skynete\\Documents\\GitHub\\sshop\\SShop-local\\src\\images\\");
+        CopyOption[] options = new CopyOption[]{
+                StandardCopyOption.REPLACE_EXISTING,
+                StandardCopyOption.COPY_ATTRIBUTES
+        };
+        Files.copy(from, to, options);
+    }
     //================================================
     //=========clear fields
     

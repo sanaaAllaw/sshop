@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 public class ItemGroup extends Application {
     TextField txt1=new TextField();
     TextField txt2=new TextField();
+    
     ComboBox<String> comb1=new ComboBox<>();
     @Override
     public void start(Stage primaryStage) {
@@ -61,7 +62,9 @@ public class ItemGroup extends Application {
             hashgroupItem.put(1, txt2.getText());
             hashgroupItem.put(2, comb1.getSelectionModel().getSelectedItem());
             generalFunc.InsertItemGroupMysql(hashgroupItem);
+            Items.GetAllItemGroup();
             clearFields();
+            primaryStage.close();
         });
         btn2.setOnAction((ActionEvent event) -> {
             primaryStage.close();
@@ -87,5 +90,5 @@ public class ItemGroup extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+   
 }
