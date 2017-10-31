@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.project.popshop">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.example.project.popshop.Index">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.project.popshop.Login" />
+        <activity android:name="com.example.project.popshop.Registre" />
+        <activity
+            android:name="com.example.project.popshop.Home"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.project.popshop.Points" />
+        <activity android:name="com.example.project.popshop.PointItems" />
+        <activity android:name="com.example.project.popshop.beforeCart" />
+        <activity android:name="com.example.project.popshop.Cinema" />
+        <activity android:name="com.example.project.popshop.CinemaClick" />
+        <activity android:name="com.example.project.popshop.AfterCart" />
+        <activity android:name="com.example.project.popshop.Chatting" />
+        <activity android:name="com.example.project.popshop.Restaurant" />
+        <activity android:name="com.example.project.popshop.RestClick"></activity>
+    </application>
+
+</manifest>

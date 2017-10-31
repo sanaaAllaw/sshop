@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/imgtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/title"
+        app:layout_heightPercent="30%"
+        app:layout_widthPercent="100%" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/userText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgtitle"
+        android:text="Username or Email:"
+        android:textColor="@color/Maroon"
+        android:textSize="20dp"
+        app:layout_widthPercent="100%" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/useredit"
+        style="@style/edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userText"
+        app:layout_widthPercent="100%" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/passtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/useredit"
+        android:text="Password:"
+        android:textColor="@color/Maroon"
+        android:textSize="20dp"
+        app:layout_widthPercent="100%" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/passedit"
+        style="@style/edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passtext"
+        android:inputType="textPassword"
+        app:layout_widthPercent="100%" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnlogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passedit"
+        android:background="@drawable/signup_btn_normal"
+        android:onClick="checkLogin"
+        android:text="Login"
+        android:textColor="@color/White"
+        android:textSize="20dp"
+        app:layout_heightPercent="10%"
+        app:layout_marginLeftPercent="15%"
+        app:layout_marginTopPercent="5%"
+        app:layout_widthPercent="70%" />
+
+</android.support.percent.PercentRelativeLayout>
