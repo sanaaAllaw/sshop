@@ -107,7 +107,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-md-7 dress-info">
 					<div class="dress-name">
 						<h3>LOREM IPSUM DRESS</h3>
-						<span>$459.00</span>
+						<span>$<?php echo $_GET['price'];?></span>
 						<div class="clearfix"></div>
 						<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo</p>
 						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p>
@@ -139,7 +139,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="clearfix"></div>
 					</div>
 					<div class="purchase">
-						<a href="#">Purchase Now</a>
+						
 						<div class="social-icons">
 							<ul>
 								<li><a class="facebook1" href="#"></a></li>

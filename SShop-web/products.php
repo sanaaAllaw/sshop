@@ -126,7 +126,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         for($i=0;$i<sizeof($arrayMen[0]);$i++){
 						?>
 					  <li>
-							<a class="cbp-vm-image" href="single.php?pic=<?php echo $arrayMen[3][$i];?>">
+							<a class="cbp-vm-image" href="single.php?pic=<?php echo $arrayMen[3][$i];?>&price=<?php echo $arrayMen[1][$i];?>">
 								<div class="simpleCart_shelfItem">
 							 <div class="view view-first">
 					   		  <div class="inner_content clearfix">
@@ -149,7 +149,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="cbp-vm-details">
 								<?php echo $arrayMen[0][$i];?>
 							</div>
-							<a class="cbp-vm-icon cbp-vm-add item_add" href="#">Add to cart</a>
+							<a class="cbp-vm-icon cbp-vm-add item_add" href="#" onClick="insertTrans()">Add to cart</a>
 							</div>
 						</li>
 						<?php
@@ -201,6 +201,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</li>
 				     </ul>
 				    <script type="text/javascript">
+					function insertTrans(){
+		var item_name=$("input[name=firstname]").val();
+		var price=$('input[name=lastname]').val();
+		
+		inserttransAction(item_name,price);
+	}
+						function inserttransAction(item_name,price){
+							alert($('.item_price').text());
+	var users_data = {
+       item_name: item_name,
+	   price: price,
+       
+    };
+	$.ajax({
+       type: "POST",
+       data: users_data,
+       url: "insertTrans.php",
+       success: function(response)
+         {    
+          
+        }
+      });
+}
 					 $(window).load(function() {
 						$("#flexiselDemo3").flexisel({
 							visibleItems: 4,
