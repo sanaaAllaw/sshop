@@ -86,21 +86,10 @@ public class SShop extends Application {
         //-----------------------------------------------------------------------
         Timer timer = new java.util.Timer();
         user.setOnAction((event) -> {
-            if(login()){
-               Home ho=new Home();
-               ho.start(primaryStage);
-               timer.cancel();
-                primaryStage.close();
-            }
-            
+          loginbtn.fire();
         });
         pass.setOnAction((event) -> {
-            if(login()){
-                Home ho=new Home();
-               ho.start(primaryStage); 
-               timer.cancel();
-                primaryStage.close();
-            }
+            loginbtn.fire();
         });
         loginbtn.setOnAction((event) -> {
             if(login()){
